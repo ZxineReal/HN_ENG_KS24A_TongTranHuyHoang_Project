@@ -24,13 +24,14 @@ body {
 
 }
 
-.button {
+button {
   transition: all 0.15s linear;
+  cursor: pointer;
 }
 
-.button:hover {
+button:hover {
   opacity: 0.8;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 .error {

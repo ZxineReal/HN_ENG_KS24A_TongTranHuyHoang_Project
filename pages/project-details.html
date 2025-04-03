@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi tiết dự án</title>
     <link rel="stylesheet" href="../css/project-details.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/reset.css" />
   </head>
   <body>
     <div class="container">
@@ -56,84 +58,86 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="main-table">
-          <h2 class="table-title">Danh sách nhiệm vụ</h2>
-          <table class="table">
-            <thead class="thead">
-              <tr>
-                <th>Tên nhiệm vụ</th>
-                <th>Người phụ trách</th>
-                <th>Ưu tiên</th>
-                <th>Ngày bắt đầu</th>
-                <th>Hạn chót</th>
-                <th>Tiến độ</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
-            <tbody class="tbody">
-              <tr>
-                <td class="table-category" colspan="7">To do</td>
-              </tr>
-              <tr>
-                <td>Soạn thảo đề cương dự án</td>
-                <td>An Nguyễn</td>
-                <td class="priority"><span class="pr-l">Thấp</span></td>
-                <td class="date">02-24</td>
-                <td class="date">02-27</td>
-                <td class="progress"><span class="prg-t">Đúng tiến độ</span></td>
-                <td>
-                  <button class="btn-edit">Sửa</button>
-                  <button class="btn-delete">Xóa</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Soạn thảo đề cương dự án</td>
-                <td>An Nguyễn</td>
-                <td class="priority"><span class="pr-m">Trung bình</span></td>
-                <td class="date">02-24</td>
-                <td class="date">02-27</td>
-                <td class="progress"><span class="prg-r">Có rủi ro</span></td>
-                <td>
-                  <button class="btn-edit">Sửa</button>
-                  <button class="btn-delete">Xóa</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Soạn thảo đề cương dự án</td>
-                <td>An Nguyễn</td>
-                <td class="priority"><span class="pr-h">Cao</span></td>
-                <td class="date">02-24</td>
-                <td class="date">02-27</td>
-                <td class="progress"><span class="prg-f">Trễ hạn</span></td>
-                <td>
-                  <button class="btn-edit">Sửa</button>
-                  <button class="btn-delete">Xóa</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-category" colspan="7">In Progress</td>
-              </tr>
-              <tr>
-                <td>Lên lịch họp kickoff</td>
-                <td>An Nguyễn</td>
-                <td class="priority"><span class="pr-m">Trung bình</span></td>
-                <td class="date">02-24</td>
-                <td class="date">02-27</td>
-                <td class="progress"><span class="prg-r">Có rủi ro</span></td>
-                <td>
-                  <button class="btn-edit">Sửa</button>
-                  <button class="btn-delete">Xóa</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-category" colspan="7">Pending</td>
-              </tr>
-              <tr>
-                <td class="table-category" colspan="7">Done</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="main-table">
+            <h2 class="table-title">Danh sách nhiệm vụ</h2>
+            <table class="table">
+              <thead class="thead">
+                <tr>
+                  <th>Tên nhiệm vụ</th>
+                  <th>Người phụ trách</th>
+                  <th>Ưu tiên</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Hạn chót</th>
+                  <th>Tiến độ</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr>
+                  <td class="table-category" colspan="7">To do</td>
+                </tr>
+                <tr>
+                  <td>Soạn thảo đề cương dự án</td>
+                  <td>An Nguyễn</td>
+                  <td class="priority"><span class="pr-l">Thấp</span></td>
+                  <td class="date">02-24</td>
+                  <td class="date">02-27</td>
+                  <td class="progress">
+                    <span class="prg-t">Đúng tiến độ</span>
+                  </td>
+                  <td>
+                    <button class="btn-edit">Sửa</button>
+                    <button class="btn-delete">Xóa</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Soạn thảo đề cương dự án</td>
+                  <td>An Nguyễn</td>
+                  <td class="priority"><span class="pr-m">Trung bình</span></td>
+                  <td class="date">02-24</td>
+                  <td class="date">02-27</td>
+                  <td class="progress"><span class="prg-r">Có rủi ro</span></td>
+                  <td>
+                    <button class="btn-edit">Sửa</button>
+                    <button class="btn-delete">Xóa</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Soạn thảo đề cương dự án</td>
+                  <td>An Nguyễn</td>
+                  <td class="priority"><span class="pr-h">Cao</span></td>
+                  <td class="date">02-24</td>
+                  <td class="date">02-27</td>
+                  <td class="progress"><span class="prg-f">Trễ hạn</span></td>
+                  <td>
+                    <button class="btn-edit">Sửa</button>
+                    <button class="btn-delete">Xóa</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-category" colspan="7">In Progress</td>
+                </tr>
+                <tr>
+                  <td>Lên lịch họp kickoff</td>
+                  <td>An Nguyễn</td>
+                  <td class="priority"><span class="pr-m">Trung bình</span></td>
+                  <td class="date">02-24</td>
+                  <td class="date">02-27</td>
+                  <td class="progress"><span class="prg-r">Có rủi ro</span></td>
+                  <td>
+                    <button class="btn-edit">Sửa</button>
+                    <button class="btn-delete">Xóa</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-category" colspan="7">Pending</td>
+                </tr>
+                <tr>
+                  <td class="table-category" colspan="7">Done</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
       <footer class="footer">
