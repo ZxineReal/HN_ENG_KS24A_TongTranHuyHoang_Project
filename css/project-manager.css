@@ -249,6 +249,7 @@ body {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  font-family: "Inter", sans-serif;
 }  
 
 .modal-add-header {
