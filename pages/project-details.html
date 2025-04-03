@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../css/project-details.css" />
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div class="container">
@@ -143,6 +150,154 @@
       <footer class="footer">
         <p>&#169;2025 Team management. All rights reserved.</p>
       </footer>
+    </div>
+    <div class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Thêm/sửa nhiệm vụ</h2>
+          <span class="form-close">&#215;</span>
+        </div>
+        <form class="modal-body">
+          <div class="input-container">
+            <label for="mission">Tên nhiệm vụ</label>
+            <input type="text" name="mission" id="mission" />
+            <p class="error hidden">Tên nhiệm vụ không được để trống</p>
+            <p class="error hidden">Tên nhiệm vụ đã tồn tại</p>
+          </div>
+          <div class="input-container">
+            <label for="charge">Người phụ trách</label>
+            <select name="charge" id="charge">
+              <option value="">Chọn người phụ trách</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="status">Trạng thái</label>
+            <select name="status" id="status">
+              <option value="">Chọn trạng thái nhiệm vụ</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="date">Ngày bắt đầu</label>
+            <input type="date" name="date" id="date" />
+          </div>
+          <div class="input-container">
+            <label for="deadline">Hạn cuối</label>
+            <input type="date" name="deadline" id="deadline" />
+          </div>
+          <div class="input-container">
+            <label for="prioritize">Độ ưu tiên</label>
+            <select name="prioritize" id="prioritize">
+              <option value="">Chọn độ ưu tiên</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label for="progress">Tiến độ</label>
+            <select name="progress" id="progress">
+              <option value="">Chọn tiến độ</option>
+            </select>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <div class="button-container">
+            <button class="btn-cancel" id="btn-add-cancel">Hủy</button>
+            <button class="btn-save" type="submit" id="btn-add-save">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <p>Thêm thành viên</p>
+          <span class="form-close">&#215;</span>
+        </div>
+        <form class="modal-body">
+          <div class="input-container">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" />
+            <p class="error hidden">Email đã tồn tại</p>
+            <p class="error hidden">Email không được để trống</p>
+          </div>
+          <div class="input-container">
+            <label for="role">Vai trò</label>
+            <input type="text" name="role" id="role" />
+            <p class="error hidden">Vai trò không được để trống</p>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <div class="button-container">
+            <button class="btn-cancel" id="btn-add-member-cancel">Hủy</button>
+            <button class="btn-save" id="btn-add-member-save">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <p>Thành viên</p>
+          <span class="form-close">&#215;</span>
+        </div>
+        <div class="modal-body">
+          <div class="body-title">
+            <p>Thành viên</p>
+            <p>Vai trò</p>
+          </div>
+          <div class="members">
+            <div class="member">
+              <div class="member-info">
+                <h4>An Nguyễn</h4>
+                <p>nguyenquangan@gmail.com</p>
+              </div>
+              <div class="member-role">
+                <input
+                  value="Project owner"
+                  type="text"
+                  name="member-role"
+                  id="member-role"
+                />
+                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
+              </div>
+            </div>
+            <div class="member">
+              <div class="member-info">
+                <h4>Bách Nguyễn</h4>
+                <p>bachnx@gmail.com</p>
+              </div>
+              <div class="member-role">
+                <input
+                  value="Frontend developer"
+                  type="text"
+                  name="member-role"
+                  id="member-role"
+                />
+                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
+              </div>
+            </div>
+            <div class="member">
+              <div class="member-info">
+                <h4>Dương Nguyễn</h4>
+                <p>duongnhm@gmail.com</p>
+              </div>
+              <div class="member-role">
+                <input
+                  value="Backend developer"
+                  type="text"
+                  name="member-role"
+                  id="member-role"
+                />
+                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="button-container">
+            <button class="btn-cancel" id="btn-members-cancel">Hủy</button>
+            <button class="btn-save" id="btn-members-save">Lưu</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
