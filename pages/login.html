@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="../css/login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Đăng nhập</h1>
+      <form id="form" class="form" action="../pages/project-manager.html">
+        <div class="input-container">
+          <div class="input-email">
+            <label for="email">Email</label>
+            <input
+              class="input"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Địa chỉ email"
+            />
+            <p id="email-none" class="error hidden">Email không được để trống</p>
+            <p id="invalid-email" class="error hidden">Email không hợp lệ</p>
+            <p id="email-er" class="error hidden">Email không tồn tại</p>
+          </div>
+          <div class="input-password">
+            <label for="password">Mật khẩu</label>
+            <input
+              class="input"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Mật khẩu"
+            />
+            <p id="password-none" class="error hidden">Mật khẩu không được để trống</p>
+            <p id="password-er" class="error hidden">Sai mật khẩu</p>
+          </div>
+        </div>
+        <button id="button-login" class="button">Đăng nhập</button>
+        <p class="register-link">
+          Chưa có tài khoản? <a href="../pages/register.html">Đăng ký</a>
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

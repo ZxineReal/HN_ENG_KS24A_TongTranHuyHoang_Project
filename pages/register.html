@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Đăng ký</h1>
+      <form id="form" class="form" action="../pages/login.html">
+        <div class="input-container">
+          <div>
+            <input
+              id="fullname"
+              class="input"
+              type="text"
+              placeholder="Họ và tên"
+            />
+            <p id="name-none" class="error hidden">Tên không được để trống</p>
+          </div>
+          <div>
+            <input
+              id="email"
+              class="input"
+              type="text"
+              placeholder="Địa chỉ email"
+            />
+            <p id="email-none" class="error hidden">
+              Email không được để trống
+            </p>
+            <p id="../pages/login.html" class="error hidden">Email không hợp lệ</p>
+            <p id="exist-email" class="error hidden">Email đã tồn tại</p>
+          </div>
+          <div>
+            <input
+              id="password"
+              class="input"
+              type="password"
+              placeholder="Mật khẩu"
+            />
+            <p id="password-none" class="error hidden">
+              Mật khẩu không được để trống
+            </p>
+            <p id="invalid-password" class="error hidden">
+              Mật khẩu không hợp lệ
+            </p>
+          </div>
+          <div>
+            <input
+              id="confirm-password"
+              class="input"
+              type="password"
+              placeholder="Xác nhận mật khẩu"
+            />
+            <p id="cf-password-none" class="error hidden">
+              Xác nhận mật khẩu không được để trống
+            </p>
+            <p id="invalid-cf-password" class="error hidden">
+              Mật khẩu không trùng khớp
+            </p>
+          </div>
+        </div>
+        <button type="submit" id="button-register" class="button">
+          Đăng ký
+        </button>
+        <p class="login-link">
+          Đã có tài khoản? <a href="../pages/login.html">Đăng nhập</a>
+        </p>
+      </form>
+    </div>
+    <script src="../js/register.js"></script>
+  </body>
+</html>

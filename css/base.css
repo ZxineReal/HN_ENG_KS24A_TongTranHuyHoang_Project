@@ -1,0 +1,48 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/Inter,Poppins,Roboto/Poppins/Poppins-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/Inter,Poppins,Roboto/Roboto/Roboto-VariableFont.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+
+}
+
+.button {
+  transition: all 0.15s linear;
+}
+
+.button:hover {
+  opacity: 0.8;
+  transform: translateY(-5px);
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.input-er {
+  border: 1px solid red !important;
+}

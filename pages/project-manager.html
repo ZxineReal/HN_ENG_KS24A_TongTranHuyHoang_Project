@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý dự án</title>
+    <link rel="stylesheet" href="../css/project-manager.css" />
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/reset.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h2 class="header-title">Quản lý dự án</h2>
+        <ul class="nav-links">
+          <li><a id="l-projects" href="">Dự án</a></li>
+          <li><a id="l-mission" href="">Nhiệm vụ của tôi</a></li>
+          <li><a id="l-log-out" href="../pages/login.html">Đăng xuất</a></li>
+        </ul>
+      </header>
+      <main class="main">
+        <div class="main-content">
+          <h1 class="main-title">Quản lý dự án nhóm</h1>
+          <form class="form">
+            <button id="btn-add" class="button">+Thêm dự án</button>
+            <input
+              type="text"
+              name="prj-find"
+              id="prj-find"
+              placeholder="Tìm kiếm dự án"
+            />
+          </form>
+          <div class="table-container">
+            <h3 class="table-title">Danh sách dự án</h3>
+            <table class="table">
+              <thead class="thead">
+                <tr>
+                  <th>ID</th>
+                  <th>Tên dự án</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody class="tbody">
+                <tr>
+                  <td>1</td>
+                  <td>Xây dựng website thương mại điện tử</td>
+                  <td class="btn-container">
+                    <button id="btn-edit">Sửa</button>
+                    <button id="btn-delete">Xóa</button>
+                    <button id="btn-detail">Chi tiết</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pagination">
+          <button id="btn-prev">&#60;</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button id="btn-next">&#62;</button>
+        </div>
+      </main>
+      <footer class="footer">
+        <p>&#169;2025 Team management. All rights reserved.</p>
+      </footer>
+    </div>
+    <div class="modal-add-overlay hidden">
+      <div class="modal-add">
+        <div class="modal-add-header">
+          <h2>Thêm/sửa dự án</h2>
+          <span id="form-close">&#215;</span>
+        </div>
+        <form class="modal-add-form">
+          <div class="modal-add-input">
+            <div class="user-input">
+              <label for="project">Tên dự án</label>
+              <input type="text" name="project" id="project" />
+              <div class="error hidden">Tên danh mục đã tồn tại</div>
+              <div class="error hidden">Tên danh mục không được để trống</div>
+            </div>
+            <div class="user-input">
+              <label for="description">Mô tả dự án</label>
+              <textarea name="description" id="description"></textarea>
+              <div class="error hidden">Mô tả dự án không được để trống</div>
+            </div>
+          </div>
+          <div class="model-add-button">
+            <button id="md-add-cancel">Hủy</button>
+            <button id="md-add-save">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-confirm-overlay hidden">
+      <div class="modal-confirm">
+        <div class="modal-confirm-header">
+          <h2>Xác nhận xóa</h2>
+          <span id="form-close">&#215;</span>
+        </div>
+        <div class="modal-confirm-content">
+          <p>Bạn có chắc muốn xóa dự án này?</p>
+        </div>
+        <div class="modal-confirm-button">
+          <button id="md-del-cancel">Hủy</button>
+          <button id="md-del-delete">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

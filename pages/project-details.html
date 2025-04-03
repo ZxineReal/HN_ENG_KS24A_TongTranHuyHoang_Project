@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết dự án</title>
+    <link rel="stylesheet" href="../css/project-details.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h2 class="header-title">Quản lý dự án</h2>
+        <ul class="nav-links">
+          <li><a id="l-projects" href="">Dự án</a></li>
+          <li><a id="l-mission" href="">Nhiệm vụ của tôi</a></li>
+          <li><a id="l-log-out" href="../pages/login.html">Đăng xuất</a></li>
+        </ul>
+      </header>
+      <main class="main">
+        <div class="main-content">
+          <div class="project">
+            <div class="project-content">
+              <h2>Xây dựng trang web thương mại điện tử</h2>
+              <p>
+                Dự án nhằm phát triển một nền tảng thương mại điện tử với các
+                tính năng như giỏ hàng, thanh toán và quản lý sản phẩm.
+              </p>
+              <button>+Thêm nhiệm vụ</button>
+            </div>
+            <div class="team-card">
+              <div class="team-header">
+                <h3>Thành viên</h3>
+                <button id="btn-add-member">+Thêm thành viên</button>
+              </div>
+              <div class="team-members">
+                <div class="member">
+                  <p class="member-name">An Nguyễn</p>
+                  <p class="member-role">Project owner</p>
+                </div>
+                <div class="member">
+                  <p class="member-name">Bách Nguyễn</p>
+                  <p class="member-role">Frontend developer</p>
+                </div>
+                <div class="more">...</div>
+              </div>
+              <div class="team-form">
+                <select name="" id="">
+                  <option value="">Sắp xếp theo</option>
+                </select>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder=" Tìm kiếm nhiệm vụ "
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main-table">
+          <h2 class="table-title">Danh sách nhiệm vụ</h2>
+          <table class="table">
+            <thead class="thead">
+              <tr>
+                <th>Tên nhiệm vụ</th>
+                <th>Người phụ trách</th>
+                <th>Ưu tiên</th>
+                <th>Ngày bắt đầu</th>
+                <th>Hạn chót</th>
+                <th>Tiến độ</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody class="tbody">
+              <tr>
+                <td class="table-category" colspan="7">To do</td>
+              </tr>
+              <tr>
+                <td>Soạn thảo đề cương dự án</td>
+                <td>An Nguyễn</td>
+                <td class="priority"><span class="pr-l">Thấp</span></td>
+                <td class="date">02-24</td>
+                <td class="date">02-27</td>
+                <td class="progress"><span class="prg-t">Đúng tiến độ</span></td>
+                <td>
+                  <button class="btn-edit">Sửa</button>
+                  <button class="btn-delete">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Soạn thảo đề cương dự án</td>
+                <td>An Nguyễn</td>
+                <td class="priority"><span class="pr-m">Trung bình</span></td>
+                <td class="date">02-24</td>
+                <td class="date">02-27</td>
+                <td class="progress"><span class="prg-r">Có rủi ro</span></td>
+                <td>
+                  <button class="btn-edit">Sửa</button>
+                  <button class="btn-delete">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Soạn thảo đề cương dự án</td>
+                <td>An Nguyễn</td>
+                <td class="priority"><span class="pr-h">Cao</span></td>
+                <td class="date">02-24</td>
+                <td class="date">02-27</td>
+                <td class="progress"><span class="prg-f">Trễ hạn</span></td>
+                <td>
+                  <button class="btn-edit">Sửa</button>
+                  <button class="btn-delete">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-category" colspan="7">In Progress</td>
+              </tr>
+              <tr>
+                <td>Lên lịch họp kickoff</td>
+                <td>An Nguyễn</td>
+                <td class="priority"><span class="pr-m">Trung bình</span></td>
+                <td class="date">02-24</td>
+                <td class="date">02-27</td>
+                <td class="progress"><span class="prg-r">Có rủi ro</span></td>
+                <td>
+                  <button class="btn-edit">Sửa</button>
+                  <button class="btn-delete">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-category" colspan="7">Pending</td>
+              </tr>
+              <tr>
+                <td class="table-category" colspan="7">Done</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+      <footer class="footer">
+        <p>&#169;2025 Team management. All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
+</html>
