@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản lý dự án</title>
     <link rel="stylesheet" href="../css/project-manager.css" />
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/reset.css" />
   </head>
   <body>
     <div class="container">
@@ -66,45 +66,51 @@
         <p>&#169;2025 Team management. All rights reserved.</p>
       </footer>
     </div>
-    <div class="modal-add-overlay hidden">
-      <div class="modal-add">
-        <div class="modal-add-header">
+    <div class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
           <h2>Thêm/sửa dự án</h2>
           <span id="form-close">&#215;</span>
         </div>
-        <form class="modal-add-form">
-          <div class="modal-add-input">
-            <div class="user-input">
-              <label for="project">Tên dự án</label>
-              <input type="text" name="project" id="project" />
-              <div class="error hidden">Tên danh mục đã tồn tại</div>
-              <div class="error hidden">Tên danh mục không được để trống</div>
+        <div class="modal-body">
+          <form class="modal-form">
+            <div class="modal-input">
+              <div class="input-container">
+                <label for="project">Tên dự án</label>
+                <input type="text" name="project" id="project" />
+                <div class="error hidden">Tên danh mục đã tồn tại</div>
+                <div class="error hidden">Tên danh mục không được để trống</div>
+              </div>
+              <div class="input-container">
+                <label for="description">Mô tả dự án</label>
+                <textarea name="description" id="description"></textarea>
+                <div class="error hidden">Mô tả dự án không được để trống</div>
+              </div>
             </div>
-            <div class="user-input">
-              <label for="description">Mô tả dự án</label>
-              <textarea name="description" id="description"></textarea>
-              <div class="error hidden">Mô tả dự án không được để trống</div>
+            <div class="modal-footer">
+              <div class="button-container">
+                <button class="btn-cancel">Hủy</button>
+                <button class="btn-save">Lưu</button>
+              </div>
             </div>
-          </div>
-          <div class="model-add-button">
-            <button id="md-add-cancel">Hủy</button>
-            <button id="md-add-save">Lưu</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="modal-confirm-overlay hidden">
-      <div class="modal-confirm">
-        <div class="modal-confirm-header">
+    <div class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
           <h2>Xác nhận xóa</h2>
-          <span id="form-close">&#215;</span>
+          <span class="form-close">&#215;</span>
         </div>
-        <div class="modal-confirm-content">
+        <div class="modal-body">
           <p>Bạn có chắc muốn xóa dự án này?</p>
         </div>
-        <div class="modal-confirm-button">
-          <button id="md-del-cancel">Hủy</button>
-          <button id="md-del-delete">Xóa</button>
+        <div class="modal-footer">
+          <div class="button-container">
+            <button class="btn-cancel">Hủy</button>
+            <button class="btn-del">Xóa</button>
+          </div>
         </div>
       </div>
     </div>

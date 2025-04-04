@@ -346,6 +346,63 @@ body {
   height: 56px;
 }
 
+.body-title {
+  display: flex;
+  width: 566px;
+  justify-content: space-around;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+}
+
+.member {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 43px;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 19.2px;
+  letter-spacing: 0px;
+}
+
+.member-info h4 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.member-role {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.member-role input {
+  padding-left: 5px;
+  height: 26px;
+  border-radius: 3px;
+  border-width: 1px;
+  border: 1px solid #d0d5dd;
+}
+
+.icon-del {
+  color: red;
+  cursor: pointer;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -365,7 +422,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Inter", sans-serif;
+  width: 480px;
 }
+
 .modal-header {
   padding: 16px;
   display: flex;
@@ -425,67 +484,14 @@ body {
   color: #ffffff;
 }
 
-.body-title {
-  display: flex;
-  width: 566px;
-  justify-content: space-around;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 0px;
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.members {
-  display: flex;
-  flex-direction: column;
-}
-
-.member {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 43px;
-}
-
-.member-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 14px;
-  line-height: 19.2px;
-  letter-spacing: 0px;
-}
-
-.member-info h4 {
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.member-role {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.member-role input {
-  padding-left: 5px;
-  height: 26px;
-  border-radius: 3px;
-  border-width: 1px;
-  border: 1px solid #d0d5dd;
-}
-
-.icon-del {
-  color: red;
-  cursor: pointer;
-}
-
 .btn-cancel {
   background-color: #6c757d;
 }
 
 .btn-save {
   background-color: #0d6efd;
+}
+
+.btn-del {
+  background-color: #dc3545;
 }
