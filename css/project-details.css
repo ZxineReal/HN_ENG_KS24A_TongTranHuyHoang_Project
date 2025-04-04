@@ -348,7 +348,6 @@ body {
 
 .body-title {
   display: flex;
-  width: 566px;
   justify-content: space-around;
   font-weight: 400;
   font-size: 20px;
@@ -365,8 +364,9 @@ body {
 
 .member {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   height: 43px;
 }
 
@@ -401,6 +401,12 @@ body {
 .icon-del {
   color: red;
   cursor: pointer;
+  transition: all 0.15s linear;
+}
+
+.icon-del:hover {
+  opacity: 0.7;
+  transform: translateY(-1px);
 }
 
 .modal-overlay {

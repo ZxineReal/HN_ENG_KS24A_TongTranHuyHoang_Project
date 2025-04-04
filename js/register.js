@@ -8,6 +8,7 @@ const nameNone = document.querySelector("#name-none");
 const emailNone = document.querySelector("#email-none");
 const invalidEmail = document.querySelector("#invalid-email");
 const passwordNone = document.querySelector("#password-none");
+const invalidPassword = document.querySelector("#invalid-password");
 const confirmNone = document.querySelector("#cf-password-none");
 
 function showError(error, element) {
@@ -20,13 +21,49 @@ function removeError(error, element) {
   element.classList.remove("input-er");
 }
 
-function validateEmail(email) {
+function checkEmpty(value, element, error) {
+  if (!value) {
+    showError(error, element);
+    return;
+  } else {
+    removeError(error, element);
+  }
+  return element;
+}
+
+function validateEmail(email, element) {
+  if (!checkEmpty(email, element, emailNone)) {
+    return;
+  }
   if (
     (email.endsWith(".com") || email.endsWith(".vn")) &&
     email.includes("@")
   ) {
-    
+    removeError(invalidEmail, element);
+  } else {
+    showError(invalidEmail, element);
+    return;
   }
+  return email;
+}
+
+function validatePassword(password, element) {
+  if (!checkEmpty(password, element, passwordNone)) {
+    return;
+  }
+  if (password.length < 8) {
+    showError(invalidPassword, element);
+    return;
+  } else {
+    removeError(invalidPassword, element);
+  }
+}
+
+function validateConfirmPassword(confirmPassword, element) {
+  if(!checkEmpty(confirmPassword,element,confirmNone)) {
+    return;
+  }
+
 }
 
 formElement.addEventListener("submit", function (event) {
@@ -34,54 +71,27 @@ formElement.addEventListener("submit", function (event) {
   let valid = 1;
 
   const usernameValue = usernameElement.value.trim();
-  if (!usernameValue) {
-    showError(nameNone, usernameElement);
+  if (!checkEmpty(usernameValue, usernameElement, nameNone)) {
     valid = 0;
     return;
-  } else {
-    removeError(nameNone, usernameElement);
-    valid = 1;
   }
 
   const emailValue = emailElement.value.trim();
-  if (!emailValue) {
-    showError(emailNone, emailElement);
-    valid = 0;
-    return;
-  } else {
-    removeError(emailNone, emailElement);
-    valid = 1;
-  }
-
-  if (
-    (emailValue.endsWith(".com") || emailValue.endsWith(".vn")) &&
-    emailValue.includes("@")
-  ) {
-    valid = 1;
-  } else {
-    showError(invalidEmail, emailElement);
+  if (!validateEmail(emailValue, emailElement)) {
     valid = 0;
     return;
   }
 
   const passwordValue = passwordElement.value.trim();
-  if (!passwordValue) {
-    showError(passwordNone, passwordElement);
+  if (!validatePassword(passwordValue, passwordElement)) {
     valid = 0;
     return;
-  } else {
-    removeError(passwordNone, passwordElement);
-    valid = 1;
   }
 
   const confirmPasswordValue = confirmPasswordElement.value.trim();
-  if (!confirmPasswordValue) {
-    showError(confirmNone, confirmPasswordElement);
+  if(!validateConfirmPassword(confirmPasswordValue,confirmPasswordElement)) {
     valid = 0;
     return;
-  } else {
-    removeError(confirmNone, confirmPasswordElement);
-    valid = 1;
   }
 
   window.location.href = "../pages/login.html";
