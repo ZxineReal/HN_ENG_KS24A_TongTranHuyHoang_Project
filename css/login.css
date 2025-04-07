@@ -35,7 +35,6 @@ body {
   letter-spacing: -2px;
   margin-top: 105px;
   color: #090914;
-  width: 636px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,8 +43,6 @@ body {
 .form {
   display: flex;
   flex-direction: column;
-  width: 533px;
-  height: 484px;
   background-color: #ffffff;
   border-radius: 20px;
   padding: 51px 22.56px 30px 38px;

@@ -7,6 +7,7 @@ const formElement = document.querySelector("#form");
 const nameNone = document.querySelector("#name-none");
 const emailNone = document.querySelector("#email-none");
 const invalidEmail = document.querySelector("#invalid-email");
+const emailExist = document.querySelector("#exist-email");
 const passwordNone = document.querySelector("#password-none");
 const invalidPassword = document.querySelector("#invalid-password");
 const confirmNone = document.querySelector("#cf-password-none");
