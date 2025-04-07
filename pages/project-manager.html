@@ -66,31 +66,31 @@
         <p>&#169;2025 Team management. All rights reserved.</p>
       </footer>
     </div>
-    <div class="modal-overlay hidden">
+    <div id="modal-add" class="modal-overlay hidden">
       <div class="modal">
         <div class="modal-header">
           <h2>Thêm/sửa dự án</h2>
-          <span id="form-close">&#215;</span>
+          <span class="form-close">&#215;</span>
         </div>
         <div class="modal-body">
           <form class="modal-form">
             <div class="modal-input">
               <div class="input-container">
                 <label for="project">Tên dự án</label>
-                <input type="text" name="project" id="project" />
-                <div class="error hidden">Tên danh mục đã tồn tại</div>
-                <div class="error hidden">Tên danh mục không được để trống</div>
+                <input type="text" name="project" id="project-name" />
+                <div id="exist-prj" class="error hidden">Tên danh mục đã tồn tại</div>
+                <div id="prj-name-none" class="error hidden">Tên danh mục không được để trống</div>
               </div>
               <div class="input-container">
                 <label for="description">Mô tả dự án</label>
                 <textarea name="description" id="description"></textarea>
-                <div class="error hidden">Mô tả dự án không được để trống</div>
+                <div id="des-none" class="error hidden">Mô tả dự án không được để trống</div>
               </div>
             </div>
             <div class="modal-footer">
               <div class="button-container">
-                <button class="btn-cancel">Hủy</button>
-                <button class="btn-save">Lưu</button>
+                <button id="btn-add-cancel" type="button" class="btn-cancel">Hủy</button>
+                <button id="btn-add-save" type="button" class="btn-save">Lưu</button>
               </div>
             </div>
           </form>
@@ -108,11 +108,12 @@
         </div>
         <div class="modal-footer">
           <div class="button-container">
-            <button class="btn-cancel">Hủy</button>
-            <button class="btn-del">Xóa</button>
+            <button id="btn-del-cancel" class="btn-cancel">Hủy</button>
+            <button id="btn-del-del" class="btn-del">Xóa</button>
           </div>
         </div>
       </div>
     </div>
+    <script src="../js/product-manager.js"></script>
   </body>
 </html>

@@ -272,7 +272,6 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Inter", sans-serif;
-  width: 480px;
 }
 
 .modal-header {
@@ -294,6 +293,10 @@ body {
   border-bottom: 1px solid #d0d5dd;
 }
 
+.modal-body textarea {
+  padding-top: 5px;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -306,6 +309,7 @@ body {
   height: 44px;
   border-radius: 8px;
   border: 1px solid #d0d5dd;
+  padding-left: 10px;
 }
 
 .input-container select {
