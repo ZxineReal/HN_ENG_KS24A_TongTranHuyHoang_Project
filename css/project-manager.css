@@ -345,3 +345,11 @@ body {
 .btn-del {
   background-color: #dc3545;
 }
+
+.none {
+  cursor: not-allowed !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+  transform: none !important;
+  opacity: 1 !important;
+}

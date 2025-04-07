@@ -10,6 +10,9 @@ const invalidEmail = document.querySelector("#invalid-email");
 const passwordNone = document.querySelector("#password-none");
 const invalidPassword = document.querySelector("#invalid-password");
 const confirmNone = document.querySelector("#cf-password-none");
+const invalidCfPassword = document.querySelector("#invalid-cf-password");
+
+let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
 
 function showError(error, element) {
   error.style.display = "block";
@@ -44,6 +47,18 @@ function validateEmail(email, element) {
     showError(invalidEmail, element);
     return;
   }
+
+  const isDuplicate = accountLocal.some(
+    (account) => account.email.toLowerCase() === email.toLowerCase()
+  );
+
+  if (isDuplicate) {
+    showError(emailExist, element);
+    return;
+  } else {
+    removeError(emailExist, element);
+  }
+
   return email;
 }
 
@@ -57,42 +72,59 @@ function validatePassword(password, element) {
   } else {
     removeError(invalidPassword, element);
   }
+  return password;
 }
 
-function validateConfirmPassword(confirmPassword, element) {
-  if(!checkEmpty(confirmPassword,element,confirmNone)) {
+function validateConfirmPassword(confirmPassword, element, passwordValue) {
+  if (!checkEmpty(confirmPassword, element, confirmNone)) {
     return;
   }
-
+  if (confirmPassword !== passwordValue) {
+    showError(invalidCfPassword, element);
+    return;
+  } else {
+    removeError(invalidCfPassword, element);
+  }
+  return confirmPassword;
 }
 
 formElement.addEventListener("submit", function (event) {
   event.preventDefault();
-  let valid = 1;
 
   const usernameValue = usernameElement.value.trim();
   if (!checkEmpty(usernameValue, usernameElement, nameNone)) {
-    valid = 0;
     return;
   }
 
   const emailValue = emailElement.value.trim();
   if (!validateEmail(emailValue, emailElement)) {
-    valid = 0;
     return;
   }
 
   const passwordValue = passwordElement.value.trim();
   if (!validatePassword(passwordValue, passwordElement)) {
-    valid = 0;
     return;
   }
 
   const confirmPasswordValue = confirmPasswordElement.value.trim();
-  if(!validateConfirmPassword(confirmPasswordValue,confirmPasswordElement)) {
-    valid = 0;
+  if (
+    !validateConfirmPassword(
+      confirmPasswordValue,
+      confirmPasswordElement,
+      passwordValue
+    )
+  ) {
     return;
   }
+
+  const newAccount = {
+    name: usernameValue,
+    email: emailValue,
+    password: passwordValue,
+  };
+
+  accountLocal.push(newAccount);
+  localStorage.setItem("accounts", JSON.stringify(accountLocal));
 
   window.location.href = "../pages/login.html";
 });
