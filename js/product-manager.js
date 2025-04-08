@@ -4,6 +4,7 @@ const projectNameElement = document.querySelector("#project-name");
 const btnSaveElement = document.querySelector("#btn-add-save");
 const descriptionElement = document.querySelector("#description");
 const logoutElement = document.querySelector("#l-log-out");
+const projectList = document.querySelector("tbody");
 
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
@@ -11,16 +12,19 @@ const descriptionNone = document.querySelector("#des-none");
 
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
+let userProjects = projectLocal.filter(
+  (project) => project.owner === loggedAccount
+);
 
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
 }
 
-logoutElement.addEventListener("click", function(){
+logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
-})
+});
 
-let user = JSON.parse(localStorage.getItem(loggedAccount)) || [];
+renderData();
 
 function closeModal(modal) {
   modal.classList.add("hidden");
@@ -51,13 +55,33 @@ function validatePrjName(name, element) {
     return;
   }
 
-  const isExists = projectLocal.find((prj) => prj.name === name);
+  const isExists = userProjects.find((prj) => prj.name === name);
   if (isExists) {
     showError(projectNameExist, element);
     return;
   } else [removeError(projectNameExist, element)];
 
   return name;
+}
+
+function renderData() {
+  userProjects = projectLocal.filter(
+    (project) => project.owner === loggedAccount
+  );
+  const projectHtmls = userProjects.map((project) => {
+    return `
+    <tr>
+      <td>${project.id}</td>
+      <td>${project.name}</td>
+      <td class="btn-container">
+        <button id="btn-edit">Sửa</button>
+        <button id="btn-delete">Xóa</button>
+        <button id="btn-detail">Chi tiết</button>
+      </td>
+    </tr>
+    `;
+  });
+  projectList.innerHTML = projectHtmls.join("");
 }
 
 btnAddElement.addEventListener("click", function (event) {
@@ -79,8 +103,10 @@ btnSaveElement.addEventListener("click", function (event) {
   }
 
   const newProject = {
+    id: Math.ceil(Math.random() * 10000),
     name: projectNameValue,
     description: descriptionValue,
+    owner: loggedAccount,
   };
 
   projectLocal.push(newProject);
@@ -90,4 +116,6 @@ btnSaveElement.addEventListener("click", function (event) {
   descriptionElement.value = "";
 
   closeModal(modalAddElement);
+  renderData();
 });
+renderData();

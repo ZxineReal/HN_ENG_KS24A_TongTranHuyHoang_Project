@@ -40,17 +40,7 @@
                   <th>Hành động</th>
                 </tr>
               </thead>
-              <tbody class="tbody">
-                <tr>
-                  <td>1</td>
-                  <td>Xây dựng website thương mại điện tử</td>
-                  <td class="btn-container">
-                    <button id="btn-edit">Sửa</button>
-                    <button id="btn-delete">Xóa</button>
-                    <button id="btn-detail">Chi tiết</button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody class="tbody"></tbody>
             </table>
           </div>
         </div>
@@ -70,7 +60,9 @@
       <div class="modal">
         <div class="modal-header">
           <h2>Thêm/sửa dự án</h2>
-          <span onclick="closeModal(modalAddElement)" class="form-close">&#215;</span>
+          <span onclick="closeModal(modalAddElement)" class="form-close"
+            >&#215;</span
+          >
         </div>
         <div class="modal-body">
           <form class="modal-form">
@@ -78,19 +70,34 @@
               <div class="input-container">
                 <label for="project">Tên dự án</label>
                 <input type="text" name="project" id="project-name" />
-                <div id="exist-prj" class="error hidden">Tên danh mục đã tồn tại</div>
-                <div id="prj-name-none" class="error hidden">Tên danh mục không được để trống</div>
+                <div id="exist-prj" class="error hidden">
+                  Tên danh mục đã tồn tại
+                </div>
+                <div id="prj-name-none" class="error hidden">
+                  Tên danh mục không được để trống
+                </div>
               </div>
               <div class="input-container">
                 <label for="description">Mô tả dự án</label>
                 <textarea name="description" id="description"></textarea>
-                <div id="des-none" class="error hidden">Mô tả dự án không được để trống</div>
+                <div id="des-none" class="error hidden">
+                  Mô tả dự án không được để trống
+                </div>
               </div>
             </div>
             <div class="modal-footer">
               <div class="button-container">
-                <button onclick="closeModal(modalAddElement)" id="btn-add-cancel" type="button" class="btn-cancel">Hủy</button>
-                <button id="btn-add-save" type="button" class="btn-save">Lưu</button>
+                <button
+                  onclick="closeModal(modalAddElement)"
+                  id="btn-add-cancel"
+                  type="button"
+                  class="btn-cancel"
+                >
+                  Hủy
+                </button>
+                <button id="btn-add-save" type="button" class="btn-save">
+                  Lưu
+                </button>
               </div>
             </div>
           </form>
