@@ -70,7 +70,7 @@
       <div class="modal">
         <div class="modal-header">
           <h2>Thêm/sửa dự án</h2>
-          <span class="form-close">&#215;</span>
+          <span onclick="closeModal(modalAddElement)" class="form-close">&#215;</span>
         </div>
         <div class="modal-body">
           <form class="modal-form">
@@ -89,7 +89,7 @@
             </div>
             <div class="modal-footer">
               <div class="button-container">
-                <button id="btn-add-cancel" type="button" class="btn-cancel">Hủy</button>
+                <button onclick="closeModal(modalAddElement)" id="btn-add-cancel" type="button" class="btn-cancel">Hủy</button>
                 <button id="btn-add-save" type="button" class="btn-save">Lưu</button>
               </div>
             </div>

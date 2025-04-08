@@ -10,6 +10,7 @@ const passwordError = document.querySelector("#password-er");
 
 const accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
 
+
 function showError(error, element) {
   error.style.display = "block";
   element.classList.add("input-er");
@@ -87,6 +88,8 @@ formElement.addEventListener("submit", function (event) {
   if (!validatePassword(passwordValue, passwordElement, emailValue)) {
     return;
   }
+
+  localStorage.setItem("logged", JSON.stringify(emailValue));
 
   window.location.href = "../pages/project-manager.html";
 });
