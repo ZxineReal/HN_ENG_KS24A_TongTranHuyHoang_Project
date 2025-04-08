@@ -5,6 +5,8 @@ const btnSaveElement = document.querySelector("#btn-add-save");
 const descriptionElement = document.querySelector("#description");
 const logoutElement = document.querySelector("#l-log-out");
 const projectList = document.querySelector("tbody");
+const modalDelElement = document.querySelector("#modal-del");
+const btnDelElement = document.querySelector("#btn-del-del");
 
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
@@ -23,8 +25,6 @@ if (!loggedAccount) {
 logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
 });
-
-renderData();
 
 function closeModal(modal) {
   modal.classList.add("hidden");
@@ -68,6 +68,7 @@ function renderData() {
   userProjects = projectLocal.filter(
     (project) => project.owner === loggedAccount
   );
+
   const projectHtmls = userProjects.map((project) => {
     return `
     <tr>
@@ -75,13 +76,24 @@ function renderData() {
       <td>${project.name}</td>
       <td class="btn-container">
         <button id="btn-edit">Sửa</button>
-        <button id="btn-delete">Xóa</button>
+        <button onclick = "handleDelete(${project.id})" id="btn-delete">Xóa</button>
         <button id="btn-detail">Chi tiết</button>
       </td>
     </tr>
     `;
   });
   projectList.innerHTML = projectHtmls.join("");
+}
+
+function handleDelete(id) {
+  const index = projectLocal.findIndex((prj) => prj.id === id);
+  modalDelElement.classList.remove("hidden");
+  btnDelElement.addEventListener("click", function () {
+    projectLocal.splice(index, 1);
+    localStorage.setItem("projects", JSON.stringify(projectLocal));
+    renderData();
+    closeModal(modalDelElement);
+  });
 }
 
 btnAddElement.addEventListener("click", function (event) {
