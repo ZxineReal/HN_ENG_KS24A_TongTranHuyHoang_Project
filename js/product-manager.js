@@ -7,6 +7,7 @@ const logoutElement = document.querySelector("#l-log-out");
 const projectList = document.querySelector("tbody");
 const modalDelElement = document.querySelector("#modal-del");
 const btnDelElement = document.querySelector("#btn-del-del");
+const formElement = document.querySelector("#modal-add-form");
 
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
@@ -14,6 +15,7 @@ const descriptionNone = document.querySelector("#des-none");
 
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
+
 let userProjects = projectLocal.filter(
   (project) => project.owner === loggedAccount
 );
@@ -29,6 +31,8 @@ logoutElement.addEventListener("click", function () {
 function closeModal(modal) {
   modal.classList.add("hidden");
 }
+
+let type = "";
 
 function checkEmpty(value, element, error) {
   if (!value) {
@@ -75,7 +79,7 @@ function renderData() {
       <td>${project.id}</td>
       <td>${project.name}</td>
       <td class="btn-container">
-        <button id="btn-edit">Sửa</button>
+        <button onclick = "handleEdit(${project.id})" id="btn-edit">Sửa</button>
         <button onclick = "handleDelete(${project.id})" id="btn-delete">Xóa</button>
         <button id="btn-detail">Chi tiết</button>
       </td>
@@ -85,20 +89,34 @@ function renderData() {
   projectList.innerHTML = projectHtmls.join("");
 }
 
+let idDelete = "";
 function handleDelete(id) {
-  const index = projectLocal.findIndex((prj) => prj.id === id);
+  idDelete = id;
   modalDelElement.classList.remove("hidden");
-  btnDelElement.addEventListener("click", function () {
-    projectLocal.splice(index, 1);
-    localStorage.setItem("projects", JSON.stringify(projectLocal));
-    renderData();
-    closeModal(modalDelElement);
-  });
+}
+
+btnDelElement.addEventListener("click", function () {
+  const index = projectLocal.findIndex((prj) => prj.id === idDelete);
+  projectLocal.splice(index, 1);
+  localStorage.setItem("projects", JSON.stringify(projectLocal));
+  renderData();
+  closeModal(modalDelElement);
+});
+
+let idEdit = "";
+function handleEdit(id) {
+  idEdit = id;
+  modalAddElement.classList.remove("hidden");
+  type = "edit";
+  const prjEdit = projectLocal.find((prj) => prj.id === idEdit);
+  projectNameElement.value = prjEdit.name;
+  descriptionElement.value = prjEdit.description;
 }
 
 btnAddElement.addEventListener("click", function (event) {
   event.preventDefault();
   modalAddElement.classList.remove("hidden");
+  type = "add";
 });
 
 btnSaveElement.addEventListener("click", function (event) {
@@ -114,14 +132,20 @@ btnSaveElement.addEventListener("click", function (event) {
     return;
   }
 
-  const newProject = {
-    id: Math.ceil(Math.random() * 10000),
-    name: projectNameValue,
-    description: descriptionValue,
-    owner: loggedAccount,
-  };
+  if (type === "add") {
+    const newProject = {
+      id: Math.ceil(Math.random() * 10000),
+      name: projectNameValue,
+      description: descriptionValue,
+      owner: loggedAccount,
+    };
+    projectLocal.push(newProject);
+  } else if (type === "edit") {
+    const projEdit = projectLocal.find((prj) => prj.id === idEdit);
+    projEdit.name = projectNameValue;
+    projEdit.description = descriptionValue;
+  }
 
-  projectLocal.push(newProject);
   localStorage.setItem("projects", JSON.stringify(projectLocal));
 
   projectNameElement.value = "";
@@ -129,5 +153,10 @@ btnSaveElement.addEventListener("click", function (event) {
 
   closeModal(modalAddElement);
   renderData();
+  type = "";
 });
 renderData();
+
+formElement.addEventListener("submit", function (event) {
+  event.preventDefault();
+});
