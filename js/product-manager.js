@@ -8,6 +8,8 @@ const projectList = document.querySelector("tbody");
 const modalDelElement = document.querySelector("#modal-del");
 const btnDelElement = document.querySelector("#btn-del-del");
 const formElement = document.querySelector("#modal-add-form");
+const findPrjElement = document.querySelector("#prj-find");
+const mainFormElement = document.querySelector("#main-form");
 
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
@@ -68,10 +70,8 @@ function validatePrjName(name, element) {
   return name;
 }
 
-function renderData() {
-  userProjects = projectLocal.filter(
-    (project) => project.owner === loggedAccount
-  );
+function renderData(value) {
+  userProjects = value.filter((project) => project.owner === loggedAccount);
 
   const projectHtmls = userProjects.map((project) => {
     return `
@@ -99,7 +99,7 @@ btnDelElement.addEventListener("click", function () {
   const index = projectLocal.findIndex((prj) => prj.id === idDelete);
   projectLocal.splice(index, 1);
   localStorage.setItem("projects", JSON.stringify(projectLocal));
-  renderData();
+  renderData(projectLocal);
   closeModal(modalDelElement);
 });
 
@@ -152,11 +152,25 @@ btnSaveElement.addEventListener("click", function (event) {
   descriptionElement.value = "";
 
   closeModal(modalAddElement);
-  renderData();
+  renderData(projectLocal);
   type = "";
 });
-renderData();
+renderData(projectLocal);
 
 formElement.addEventListener("submit", function (event) {
   event.preventDefault();
+});
+
+mainFormElement.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const findPrjValue = findPrjElement.value.trim();
+  if (findPrjValue) {
+    const filterPrj = projectLocal.filter((prj) =>
+      prj.name.includes(findPrjValue)
+    );
+    renderData(filterPrj);
+  } else {
+    renderData(projectLocal);
+  }
 });
