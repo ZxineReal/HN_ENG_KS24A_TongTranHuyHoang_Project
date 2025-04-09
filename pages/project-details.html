@@ -34,7 +34,7 @@
                 Dự án nhằm phát triển một nền tảng thương mại điện tử với các
                 tính năng như giỏ hàng, thanh toán và quản lý sản phẩm.
               </p>
-              <button>+Thêm nhiệm vụ</button>
+              <button id="btn-mission-add">+Thêm nhiệm vụ</button>
             </div>
             <div class="team-card">
               <div class="team-header">
@@ -87,8 +87,8 @@
                   <td>Soạn thảo đề cương dự án</td>
                   <td>An Nguyễn</td>
                   <td class="priority"><span class="pr-l">Thấp</span></td>
-                  <td class="date">02-24</td>
-                  <td class="date">02-27</td>
+                  <td class="date start">02-24</td>
+                  <td class="date end">02-27</td>
                   <td class="progress">
                     <span class="prg-t">Đúng tiến độ</span>
                   </td>
@@ -151,7 +151,7 @@
         <p>&#169;2025 Team management. All rights reserved.</p>
       </footer>
     </div>
-    <div class="modal-overlay hidden">
+    <div id="modal-add" class="modal-overlay hidden">
       <div class="modal">
         <div class="modal-header">
           <h2>Thêm/sửa nhiệm vụ</h2>
@@ -161,40 +161,56 @@
           <div class="input-container">
             <label for="mission">Tên nhiệm vụ</label>
             <input type="text" name="mission" id="mission" />
-            <p class="error hidden">Tên nhiệm vụ không được để trống</p>
-            <p class="error hidden">Tên nhiệm vụ đã tồn tại</p>
+            <p id="mission-name-none" class="error hidden">Tên nhiệm vụ không được để trống</p>
+            <p id="mission-name-exist" class="error hidden">Tên nhiệm vụ đã tồn tại</p>
           </div>
           <div class="input-container">
             <label for="charge">Người phụ trách</label>
             <select name="charge" id="charge">
-              <option value="">Chọn người phụ trách</option>
+              <option selected="selected" disabled value="0">Chọn người phụ trách</option>
+              <option value="1">ok</option>
             </select>
+            <div id="charge-none" class="error hidden">Vui lòng chọn người phụ trách</div>
           </div>
           <div class="input-container">
             <label for="status">Trạng thái</label>
             <select name="status" id="status">
-              <option value="">Chọn trạng thái nhiệm vụ</option>
+              <option selected="selected" disabled value="0">Chọn trạng thái nhiệm vụ</option>
+              <option value="1">To do</option>
+              <option value="2">In Progress</option>
+              <option value="3">Pending</option>  
             </select>
+            <d iv id="status-none" class="error hidden">Vui lòng chọn trạng thái nhiệm vụ</d>
           </div>
           <div class="input-container">
             <label for="date">Ngày bắt đầu</label>
             <input type="date" name="date" id="date" />
+            <div id="start-none" class="error hidden">Vui lòng chọn ngày bắt đầu</div>
           </div>
           <div class="input-container">
             <label for="deadline">Hạn cuối</label>
             <input type="date" name="deadline" id="deadline" />
+            <div id="end-none" class="error hidden">Vui lòng chọn hạn cuối</div>
           </div>
           <div class="input-container">
             <label for="prioritize">Độ ưu tiên</label>
             <select name="prioritize" id="prioritize">
-              <option value="">Chọn độ ưu tiên</option>
+              <option selected="selected" disabled value="0">Chọn độ ưu tiên</option>
+              <option value="Thấp">Thấp</option>
+              <option value="Trung bình">Trung bình</option>
+              <option value="Cao">Cao</option>
             </select>
+            <div id="pri-none" class="error hidden">Vui lòng chọn độ ưu tiên</div>
           </div>
           <div class="input-container">
             <label for="progress">Tiến độ</label>
             <select name="progress" id="progress">
-              <option value="">Chọn tiến độ</option>
+              <option selected="selected" disabled value="0">Chọn tiến độ</option>
+              <option value="Đúng tiến độ">Đúng tiến độ</option>
+              <option value="Có rủi ro">Có rủi ro</option>
+              <option value="Trễ hẹn">Trễ hạn</option>
             </select>
+            <div id="prog-none" class="error hidden">Vui lòng chọn tiến độ</div>
           </div>
         </form>
         <div class="modal-footer">
@@ -318,5 +334,6 @@
         </div>
       </div>
     </div>
+    <script src="../js/project-details.js"></script>
   </body>
 </html>

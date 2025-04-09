@@ -458,12 +458,14 @@ body {
   height: 44px;
   border-radius: 8px;
   border: 1px solid #d0d5dd;
+  padding-left: 10px;
 }
 
 .input-container select {
   height: 44px;
   border-radius: 8px;
   border: 1px solid #d0d5dd;
+  padding-left: 10px;
 }
 
 .modal-footer {

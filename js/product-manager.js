@@ -4,6 +4,7 @@ const projectNameElement = document.querySelector("#project-name");
 const btnSaveElement = document.querySelector("#btn-add-save");
 const descriptionElement = document.querySelector("#description");
 const logoutElement = document.querySelector("#l-log-out");
+const projectLinkElement = document.querySelector("#l-projects");
 const projectList = document.querySelector("tbody");
 const modalDelElement = document.querySelector("#modal-del");
 const btnDelElement = document.querySelector("#btn-del-del");
@@ -17,6 +18,11 @@ const descriptionNone = document.querySelector("#des-none");
 
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
+let projectDetail = JSON.parse(localStorage.getItem("projectID"));
+
+projectLinkElement.addEventListener("click", function () {
+  localStorage.removeItem("projectID");
+});
 
 let userProjects = projectLocal.filter(
   (project) => project.owner === loggedAccount
@@ -27,6 +33,7 @@ if (!loggedAccount) {
 }
 
 logoutElement.addEventListener("click", function () {
+  localStorage.removeItem("projectID");
   localStorage.removeItem("logged");
 });
 
@@ -81,7 +88,7 @@ function renderData(value) {
       <td class="btn-container">
         <button onclick = "handleEdit(${project.id})" id="btn-edit">Sửa</button>
         <button onclick = "handleDelete(${project.id})" id="btn-delete">Xóa</button>
-        <button id="btn-detail">Chi tiết</button>
+        <button onclick = "showDetail(${project.id})" id="btn-detail">Chi tiết</button>
       </td>
     </tr>
     `;
@@ -113,6 +120,14 @@ function handleEdit(id) {
   descriptionElement.value = prjEdit.description;
 }
 
+let idDetails = "";
+function showDetail(id) {
+  idDetails = id;
+  const prjDetail = projectLocal.find((prj) => prj.id === idDetails);
+  localStorage.setItem("projectID", JSON.stringify(prjDetail.id));
+  window.location.href = "../pages/project-details.html";
+}
+
 btnAddElement.addEventListener("click", function (event) {
   event.preventDefault();
   modalAddElement.classList.remove("hidden");
@@ -133,6 +148,8 @@ btnSaveElement.addEventListener("click", function (event) {
   }
 
   if (type === "add") {
+    projectNameElement.value = "";
+    descriptionElement.value = "";
     const newProject = {
       id: Math.ceil(Math.random() * 10000),
       name: projectNameValue,
