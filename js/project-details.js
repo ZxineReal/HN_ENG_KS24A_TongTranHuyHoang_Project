@@ -10,6 +10,10 @@ const deadline = document.querySelector("#deadline");
 const prioritize = document.querySelector("#prioritize");
 const progress = document.querySelector("#progress");
 const missionList = document.querySelector(".tbody");
+const todoListElemment = document.querySelector("#todoList");
+const inprogressListElemment = document.querySelector("#inprogressList");
+const pendingListElemment = document.querySelector("#pendingList");
+const doneListElemment = document.querySelector("#doneList");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -23,7 +27,7 @@ let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
 let projectID = localStorage.getItem("projectID");
-let projectMission = missionLocal.filter((mission) => mission.id === projectID);
+let projectMission = missionLocal.filter((mission) => mission.prjId === projectID);
 
 let style = "";
 
@@ -111,8 +115,10 @@ btnSaveElement.addEventListener("click", function (event) {
   }
 
   const newMission = {
-    id: projectID,
+    id: Math.ceil(Math.random()*10000),
+    prjId: projectID,
     name: missionValue,
+    status: statusValue,
     charge: chargePersonValue,
     prioritize: prioritizeValue,
     start: dateValue,
@@ -126,11 +132,16 @@ btnSaveElement.addEventListener("click", function (event) {
 });
 
 function renderData(data) {
-  projectMission = data.filter((mission) => mission.id === projectID);
+  const projectMission = data.filter((mission) => mission.prjId === projectID);
 
-  const missionHtmls = projectMission.map((mission) => {
-    return `
-    <tr>
+  todoListElemment.innerHTML = "";
+  inprogressListElemment.innerHTML = "";
+  pendingListElemment.innerHTML = "";
+  doneListElemment.innerHTML = "";
+
+  projectMission.forEach((mission) => {
+    const html = `
+      <tr>
         <td>${mission.name}</td>
         <td>${mission.charge}</td>
         <td class="priority"><span class="${
@@ -143,22 +154,32 @@ function renderData(data) {
         <td class="date">${mission.start}</td>
         <td class="date">${mission.end}</td>
         <td class="progress">
-        <span class="${
-          mission.progress === "Đúng tiến độ"
-            ? "prg-t"
-            : mission.progress === "Trễ hẹn"
-            ? "prg-f"
-            : "prg-r"
-        }">${mission.progress}</span>
+          <span class="${
+            mission.progress === "Đúng tiến độ"
+              ? "prg-t"
+              : mission.progress === "Trễ hẹn"
+              ? "prg-f"
+              : "prg-r"
+          }">${mission.progress}</span>
         </td>
         <td>
-        <button class="btn-edit">Sửa</button>
-        <button class="btn-delete">Xóa</button>
+          <button class="btn-edit">Sửa</button>
+          <button class="btn-delete">Xóa</button>
         </td>
-    </tr>
+      </tr>
     `;
+
+    if (mission.status === "1") {
+      todoListElemment.innerHTML += html;
+    } else if (mission.status === "2") {
+      inprogressListElemment.innerHTML += html;
+    } else if (mission.status === "3") {
+      pendingListElemment.innerHTML += html;
+    } else if (mission.status === "4") {
+      doneListElemment.innerHTML += html;
+    }
   });
-  missionList.innerHTML = missionHtmls.join("");
 }
+
 
 renderData(missionLocal);

@@ -79,71 +79,36 @@
                   <th>Hành động</th>
                 </tr>
               </thead>
-              <tbody class="tbody">
-                <tr>
-                  <td class="table-category" colspan="7">To do</td>
-                </tr>
-                <tr>
-                  <td>Soạn thảo đề cương dự án</td>
-                  <td>An Nguyễn</td>
-                  <td class="priority"><span class="pr-l">Thấp</span></td>
-                  <td class="date start">02-24</td>
-                  <td class="date end">02-27</td>
-                  <td class="progress">
-                    <span class="prg-t">Đúng tiến độ</span>
-                  </td>
-                  <td>
-                    <button class="btn-edit">Sửa</button>
-                    <button class="btn-delete">Xóa</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Soạn thảo đề cương dự án</td>
-                  <td>An Nguyễn</td>
-                  <td class="priority"><span class="pr-m">Trung bình</span></td>
-                  <td class="date">02-24</td>
-                  <td class="date">02-27</td>
-                  <td class="progress"><span class="prg-r">Có rủi ro</span></td>
-                  <td>
-                    <button class="btn-edit">Sửa</button>
-                    <button class="btn-delete">Xóa</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Soạn thảo đề cương dự án</td>
-                  <td>An Nguyễn</td>
-                  <td class="priority"><span class="pr-h">Cao</span></td>
-                  <td class="date">02-24</td>
-                  <td class="date">02-27</td>
-                  <td class="progress"><span class="prg-f">Trễ hạn</span></td>
-                  <td>
-                    <button class="btn-edit">Sửa</button>
-                    <button class="btn-delete">Xóa</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-category" colspan="7">In Progress</td>
-                </tr>
-                <tr>
-                  <td>Lên lịch họp kickoff</td>
-                  <td>An Nguyễn</td>
-                  <td class="priority"><span class="pr-m">Trung bình</span></td>
-                  <td class="date">02-24</td>
-                  <td class="date">02-27</td>
-                  <td class="progress"><span class="prg-r">Có rủi ro</span></td>
-                  <td>
-                    <button class="btn-edit">Sửa</button>
-                    <button class="btn-delete">Xóa</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-category" colspan="7">Pending</td>
-                </tr>
-                <tr>
-                  <td class="table-category" colspan="7">Done</td>
-                </tr>
+            
+              <tbody>
+                <tr><td class="table-category" colspan="7">
+                  <span class="triangle-down"></span>
+                  To do</td></tr>
               </tbody>
+              <tbody id="todoList"></tbody>
+            
+              <tbody>
+                <tr><td class="table-category" colspan="7">
+                  <span class="triangle-down"></span>
+                  In Progress</td></tr>
+              </tbody>
+              <tbody id="inprogressList"></tbody>
+            
+              <tbody>
+                <tr><td class="table-category" colspan="7">
+                  <span class="triangle-down"></span>
+                  Pending</td></tr>
+              </tbody>
+              <tbody id="pendingList"></tbody>
+            
+              <tbody>
+                <tr><td class="table-category" colspan="7">
+                  <span class="triangle-down"></span>
+                  Done</td></tr>
+              </tbody>
+              <tbody id="doneList"></tbody>
             </table>
+            
           </div>
         </div>
       </main>
@@ -161,31 +126,46 @@
           <div class="input-container">
             <label for="mission">Tên nhiệm vụ</label>
             <input type="text" name="mission" id="mission" />
-            <p id="mission-name-none" class="error hidden">Tên nhiệm vụ không được để trống</p>
-            <p id="mission-name-exist" class="error hidden">Tên nhiệm vụ đã tồn tại</p>
+            <p id="mission-name-none" class="error hidden">
+              Tên nhiệm vụ không được để trống
+            </p>
+            <p id="mission-name-exist" class="error hidden">
+              Tên nhiệm vụ đã tồn tại
+            </p>
           </div>
           <div class="input-container">
             <label for="charge">Người phụ trách</label>
             <select name="charge" id="charge">
-              <option selected="selected" disabled value="0">Chọn người phụ trách</option>
+              <option selected="selected" disabled value="0">
+                Chọn người phụ trách
+              </option>
               <option value="1">ok</option>
             </select>
-            <div id="charge-none" class="error hidden">Vui lòng chọn người phụ trách</div>
+            <div id="charge-none" class="error hidden">
+              Vui lòng chọn người phụ trách
+            </div>
           </div>
           <div class="input-container">
             <label for="status">Trạng thái</label>
             <select name="status" id="status">
-              <option selected="selected" disabled value="0">Chọn trạng thái nhiệm vụ</option>
+              <option selected="selected" disabled value="0">
+                Chọn trạng thái nhiệm vụ
+              </option>
               <option value="1">To do</option>
               <option value="2">In Progress</option>
-              <option value="3">Pending</option>  
+              <option value="3">Pending</option>
+              <option value="4">Done</option>
             </select>
-            <d iv id="status-none" class="error hidden">Vui lòng chọn trạng thái nhiệm vụ</d>
+            <d iv id="status-none" class="error hidden"
+              >Vui lòng chọn trạng thái nhiệm vụ</d
+            >
           </div>
           <div class="input-container">
             <label for="date">Ngày bắt đầu</label>
             <input type="date" name="date" id="date" />
-            <div id="start-none" class="error hidden">Vui lòng chọn ngày bắt đầu</div>
+            <div id="start-none" class="error hidden">
+              Vui lòng chọn ngày bắt đầu
+            </div>
           </div>
           <div class="input-container">
             <label for="deadline">Hạn cuối</label>
@@ -195,17 +175,23 @@
           <div class="input-container">
             <label for="prioritize">Độ ưu tiên</label>
             <select name="prioritize" id="prioritize">
-              <option selected="selected" disabled value="0">Chọn độ ưu tiên</option>
+              <option selected="selected" disabled value="0">
+                Chọn độ ưu tiên
+              </option>
               <option value="Thấp">Thấp</option>
               <option value="Trung bình">Trung bình</option>
               <option value="Cao">Cao</option>
             </select>
-            <div id="pri-none" class="error hidden">Vui lòng chọn độ ưu tiên</div>
+            <div id="pri-none" class="error hidden">
+              Vui lòng chọn độ ưu tiên
+            </div>
           </div>
           <div class="input-container">
             <label for="progress">Tiến độ</label>
             <select name="progress" id="progress">
-              <option selected="selected" disabled value="0">Chọn tiến độ</option>
+              <option selected="selected" disabled value="0">
+                Chọn tiến độ
+              </option>
               <option value="Đúng tiến độ">Đúng tiến độ</option>
               <option value="Có rủi ro">Có rủi ro</option>
               <option value="Trễ hẹn">Trễ hạn</option>
