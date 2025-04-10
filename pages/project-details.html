@@ -20,7 +20,9 @@
       <header class="header">
         <h2 class="header-title">Quản lý dự án</h2>
         <ul class="nav-links">
-          <li><a id="l-projects" href="../pages/project-manager.html">Dự án</a></li>
+          <li>
+            <a id="l-projects" href="../pages/project-manager.html">Dự án</a>
+          </li>
           <li><a id="l-mission" href="">Nhiệm vụ của tôi</a></li>
           <li><a id="l-log-out" href="../pages/login.html">Đăng xuất</a></li>
         </ul>
@@ -79,36 +81,47 @@
                   <th>Hành động</th>
                 </tr>
               </thead>
-            
+
               <tbody>
-                <tr><td class="table-category" colspan="7">
-                  <span class="triangle-down"></span>
-                  To do</td></tr>
+                <tr>
+                  <td class="table-category" colspan="7">
+                    <span class="triangle-down"></span>
+                    To do
+                  </td>
+                </tr>
               </tbody>
               <tbody id="todoList"></tbody>
-            
+
               <tbody>
-                <tr><td class="table-category" colspan="7">
-                  <span class="triangle-down"></span>
-                  In Progress</td></tr>
+                <tr>
+                  <td class="table-category" colspan="7">
+                    <span class="triangle-down"></span>
+                    In Progress
+                  </td>
+                </tr>
               </tbody>
               <tbody id="inprogressList"></tbody>
-            
+
               <tbody>
-                <tr><td class="table-category" colspan="7">
-                  <span class="triangle-down"></span>
-                  Pending</td></tr>
+                <tr>
+                  <td class="table-category" colspan="7">
+                    <span class="triangle-down"></span>
+                    Pending
+                  </td>
+                </tr>
               </tbody>
               <tbody id="pendingList"></tbody>
-            
+
               <tbody>
-                <tr><td class="table-category" colspan="7">
-                  <span class="triangle-down"></span>
-                  Done</td></tr>
+                <tr>
+                  <td class="table-category" colspan="7">
+                    <span class="triangle-down"></span>
+                    Done
+                  </td>
+                </tr>
               </tbody>
               <tbody id="doneList"></tbody>
             </table>
-            
           </div>
         </div>
       </main>
@@ -166,11 +179,13 @@
             <div id="start-none" class="error hidden">
               Vui lòng chọn ngày bắt đầu
             </div>
+            <div class="error invalidDate">Không hợp lệ</div>
           </div>
           <div class="input-container">
             <label for="deadline">Hạn cuối</label>
             <input type="date" name="deadline" id="deadline" />
             <div id="end-none" class="error hidden">Vui lòng chọn hạn cuối</div>
+            <div class="error invalidDate">Không hợp lệ</div>
           </div>
           <div class="input-container">
             <label for="prioritize">Độ ưu tiên</label>
@@ -209,23 +224,26 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay hidden">
+    <div id="modal-add-member" class="modal-overlay hidden">
       <div class="modal">
         <div class="modal-header">
           <p>Thêm thành viên</p>
-          <span class="form-close">&#215;</span>
+          <span id="md-a-m-close" class="form-close"
+            >&#215;</span
+          >
         </div>
         <form class="modal-body">
           <div class="input-container">
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
-            <p class="error hidden">Email đã tồn tại</p>
-            <p class="error hidden">Email không được để trống</p>
+            <p id="email-exist" class="error hidden">Email không tồn tại</p>
+            <p id="email-none" class="error hidden">Email không được để trống</p>
+            <p id="invalid-email" class="error hidden">Email không hợp lệ</p>
           </div>
           <div class="input-container">
             <label for="role">Vai trò</label>
             <input type="text" name="role" id="role" />
-            <p class="error hidden">Vai trò không được để trống</p>
+            <p id="role-none" class="error hidden">Vai trò không được để trống</p>
           </div>
         </form>
         <div class="modal-footer">

@@ -256,7 +256,7 @@ formElement.addEventListener("submit", function (event) {
   event.preventDefault();
 });
 
-mainFormElement.addEventListener("submit", function (event) {
+mainFormElement.addEventListener("keyup", function (event) {
   event.preventDefault();
 
   const findPrjValue = findPrjElement.value.trim();

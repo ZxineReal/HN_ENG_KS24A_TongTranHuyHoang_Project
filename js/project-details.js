@@ -14,6 +14,14 @@ const todoListElemment = document.querySelector("#todoList");
 const inprogressListElemment = document.querySelector("#inprogressList");
 const pendingListElemment = document.querySelector("#pendingList");
 const doneListElemment = document.querySelector("#doneList");
+const logoutElement = document.querySelector("#l-log-out");
+const btnAddMember = document.querySelector("#btn-add-member");
+const modalAddMember = document.querySelector("#modal-add-member");
+const formClose = document.querySelector("#md-a-m-close");
+const btnFormClose = document.querySelector("#btn-add-member-cancel");
+const btnSaveMember = document.querySelector("#btn-add-member-save");
+const emailElement = document.querySelector("#email");
+const roleElement = document.querySelector("#role");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -22,18 +30,32 @@ const startNone = document.querySelector("#start-none");
 const endNone = document.querySelector("#end-none");
 const priNone = document.querySelector("#pri-none");
 const progNone = document.querySelector("#prog-none");
+const invalidDate = document.querySelectorAll(".invalidDate");
+const emailNone = document.querySelector("#email-none");
+const emailExist = document.querySelector("#email-exist");
+const roleNone = document.querySelector("#role-none");
+const invalidEmail = document.querySelector("#invalid-email");
 
+let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
+let memberLocal = JSON.parse(localStorage.getItem("members")) || [];
 let projectID = localStorage.getItem("projectID");
-let projectMission = missionLocal.filter((mission) => mission.prjId === projectID);
+let projectMission = missionLocal.filter(
+  (mission) => mission.prjId === projectID
+);
 
 let style = "";
 
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
 }
+
+logoutElement.addEventListener("click", function () {
+  localStorage.removeItem("logged");
+  localStorage.removeItem("projectID");
+});
 
 function checkEmpty(value, element, error) {
   if (!value) {
@@ -115,7 +137,7 @@ btnSaveElement.addEventListener("click", function (event) {
   }
 
   const newMission = {
-    id: Math.ceil(Math.random()*10000),
+    id: Math.ceil(Math.random() * 10000),
     prjId: projectID,
     name: missionValue,
     status: statusValue,
@@ -180,6 +202,79 @@ function renderData(data) {
     }
   });
 }
+
+btnAddMember.addEventListener("click", function (event) {
+  event.preventDefault();
+  modalAddMember.classList.remove("hidden");
+});
+
+function closeModal(modal) {
+  modal.classList.add("hidden");
+}
+
+formClose.addEventListener("click", function () {
+  closeModal(modalAddMember);
+});
+
+btnFormClose.addEventListener("click", function () {
+  closeModal(modalAddMember);
+});
+
+btnSaveMember.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const emailValue = emailElement.value.trim();
+  const findAccount = accountLocal.find((acc) => acc.email === emailValue);
+
+  if (!emailValue) {
+    showError(emailNone, emailElement);
+    return;
+  } else {
+    removeError(emailNone, emailElement);
+  }
+
+  if (
+    emailValue.includes("@") &&
+    (emailValue.endsWith(".com") || emailValue.endsWith(".vn"))
+  ) {
+    removeError(invalidEmail, emailElement);
+  } else {
+    showError(invalidEmail, emailElement);
+    return;
+  }
+
+  if(!findAccount) {
+    showError(emailExist, emailElement);
+    return;
+  } else {
+    removeError(emailExist, emailElement);
+  }
+
+  const roleValue = roleElement.value.trim();
+  if (!roleValue) {
+    showError(roleNone, roleElement);
+    return;
+  } else {
+    removeError(roleNone, roleElement);
+  }
+
+
+  const newMember = {
+    projID: projectID,
+    id: Math.ceil(Math.random() * 10000),
+    name: findAccount.name,
+    email: emailValue,
+    role: roleValue,
+  };
+  memberLocal.push(newMember);
+  localStorage.setItem("members", JSON.stringify(memberLocal));
+
+  emailElement.value = "";
+  roleElement.value = "";
+
+  modalAddMember.classList.add("hidden");
+});
+
 
 
 renderData(missionLocal);
