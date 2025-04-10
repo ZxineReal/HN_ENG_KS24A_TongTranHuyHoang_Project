@@ -14,6 +14,11 @@ const confirmNone = document.querySelector("#cf-password-none");
 const invalidCfPassword = document.querySelector("#invalid-cf-password");
 
 let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
+const loggedAccount = JSON.parse(localStorage.getItem("logged"));
+
+if (loggedAccount) {
+  window.location.href = "../pages/project-manager.html";
+}
 
 function showError(error, element) {
   error.style.display = "block";

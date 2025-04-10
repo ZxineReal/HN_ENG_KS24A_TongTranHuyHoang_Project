@@ -9,7 +9,11 @@ const passwordNone = document.querySelector("#password-none");
 const passwordError = document.querySelector("#password-er");
 
 const accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
+const loggedAccount = JSON.parse(localStorage.getItem("logged"));
 
+if (loggedAccount) {
+  window.location.href = "../pages/project-manager.html";
+}
 
 function showError(error, element) {
   error.style.display = "block";

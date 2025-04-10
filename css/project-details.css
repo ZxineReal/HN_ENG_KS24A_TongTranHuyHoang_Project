@@ -136,7 +136,6 @@ body {
 
 .team-members {
   display: flex;
-  gap: 25px;
   margin-bottom: 48px;
   justify-content: space-between;
 }
@@ -146,7 +145,12 @@ body {
   flex-direction: column;
 }
 
-.team-members .member-name {
+.member-list {
+  display: flex;
+  gap: 25px;
+}
+
+.member-name {
   font-weight: 600;
   font-size: 13.65px;
   line-height: 24px;

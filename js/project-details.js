@@ -22,6 +22,7 @@ const btnFormClose = document.querySelector("#btn-add-member-cancel");
 const btnSaveMember = document.querySelector("#btn-add-member-save");
 const emailElement = document.querySelector("#email");
 const roleElement = document.querySelector("#role");
+const memberList = document.querySelector("#member-list");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -30,7 +31,8 @@ const startNone = document.querySelector("#start-none");
 const endNone = document.querySelector("#end-none");
 const priNone = document.querySelector("#pri-none");
 const progNone = document.querySelector("#prog-none");
-const invalidDate = document.querySelectorAll(".invalidDate");
+const invalidDate = document.querySelector("#invalid-date");
+const invalidDateline = document.querySelector("#invalid-dateline");
 const emailNone = document.querySelector("#email-none");
 const emailExist = document.querySelector("#email-exist");
 const roleNone = document.querySelector("#role-none");
@@ -121,9 +123,44 @@ btnSaveElement.addEventListener("click", function (event) {
     return;
   }
 
+  let startdate = new Date(dateValue);
+  let startDay = startdate.getDate();
+  if (startDay > 0 && startDay < 10) {
+    startDay = `0${startDay}`;
+  }
+  let startMonth = startdate.getMonth();
+  if (startMonth > 0 && startMonth < 10) {
+    startMonth = `0${startMonth}`;
+  }
+  let startYear = startdate.getFullYear();
+
   const deadlineValue = deadline.value;
   if (!checkEmpty(deadlineValue, deadline, endNone)) {
     return;
+  }
+
+  let enddate = new Date(deadlineValue);
+  let endDay = enddate.getDate();
+  if (endDay > 0 && endDay < 10) {
+    endDay = `0${endDay}`;
+  }
+  let endMonth = enddate.getMonth();
+  if (endMonth > 0 && endMonth < 10) {
+    endMonth = `0${endMonth}`;
+  }
+  let endYear = enddate.getFullYear();
+
+  if (
+    (endYear === startYear && endMonth === startMonth && endDay < startDay) ||
+    endYear < startYear ||
+    endMonth < startMonth
+  ) {
+    showError(invalidDate, date);
+    showError(invalidDateline, deadline);
+    return;
+  } else {
+    removeError(invalidDate, date);
+    removeError(invalidDateline, deadline);
   }
 
   const prioritizeValue = prioritize.value;
@@ -143,8 +180,8 @@ btnSaveElement.addEventListener("click", function (event) {
     status: statusValue,
     charge: chargePersonValue,
     prioritize: prioritizeValue,
-    start: dateValue,
-    end: deadlineValue,
+    start: `${startDay} - ${startMonth}`,
+    end: `${endDay} - ${endMonth}`,
     progress: progressValue,
   };
   missionLocal.push(newMission);
@@ -243,7 +280,7 @@ btnSaveMember.addEventListener("click", function (event) {
     return;
   }
 
-  if(!findAccount) {
+  if (!findAccount) {
     showError(emailExist, emailElement);
     return;
   } else {
@@ -258,10 +295,9 @@ btnSaveMember.addEventListener("click", function (event) {
     removeError(roleNone, roleElement);
   }
 
-
   const newMember = {
     projID: projectID,
-    id: Math.ceil(Math.random() * 10000),
+    id: findAccount.id,
     name: findAccount.name,
     email: emailValue,
     role: roleValue,
@@ -273,8 +309,21 @@ btnSaveMember.addEventListener("click", function (event) {
   roleElement.value = "";
 
   modalAddMember.classList.add("hidden");
+  renderMember();
 });
 
+function renderMember() {
+  const filterMember = memberLocal.filter((mem) => mem.prjID === projectID);
+  const memberHtmls = filterMember.map((mem) => {
+    return `
+    <div class="member">
+      <p class="member-name">${mem.name}</p>
+      <p class="member-role">${mem.role}</p>
+    </div>
+    `;
+  });
+  memberList.innerHTML = memberHtmls.join("");
+}
 
-
+renderMember();
 renderData(missionLocal);

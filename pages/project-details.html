@@ -43,14 +43,16 @@
                 <h3>Thành viên</h3>
                 <button id="btn-add-member">+Thêm thành viên</button>
               </div>
-              <div class="team-members">
-                <div class="member">
-                  <p class="member-name">An Nguyễn</p>
-                  <p class="member-role">Project owner</p>
-                </div>
-                <div class="member">
-                  <p class="member-name">Bách Nguyễn</p>
-                  <p class="member-role">Frontend developer</p>
+              <div id="team-members" class="team-members">
+                <div id="member-list" class="member-list">
+                  <div class="member">
+                    <p class="member-name">An Nguyễn</p>
+                    <p class="member-role">Project owner</p>
+                  </div>
+                  <div class="member">
+                    <p class="member-name">Bách Nguyễn</p>
+                    <p class="member-role">Frontend developer</p>
+                  </div>
                 </div>
                 <div class="more">...</div>
               </div>
@@ -179,13 +181,13 @@
             <div id="start-none" class="error hidden">
               Vui lòng chọn ngày bắt đầu
             </div>
-            <div class="error invalidDate">Không hợp lệ</div>
+            <div id="invalid-date" class="error hidden">Không hợp lệ</div>
           </div>
           <div class="input-container">
             <label for="deadline">Hạn cuối</label>
             <input type="date" name="deadline" id="deadline" />
             <div id="end-none" class="error hidden">Vui lòng chọn hạn cuối</div>
-            <div class="error invalidDate">Không hợp lệ</div>
+            <div id="invalid-dateline" class="error hidden">Không hợp lệ</div>
           </div>
           <div class="input-container">
             <label for="prioritize">Độ ưu tiên</label>
@@ -228,22 +230,24 @@
       <div class="modal">
         <div class="modal-header">
           <p>Thêm thành viên</p>
-          <span id="md-a-m-close" class="form-close"
-            >&#215;</span
-          >
+          <span id="md-a-m-close" class="form-close">&#215;</span>
         </div>
         <form class="modal-body">
           <div class="input-container">
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
             <p id="email-exist" class="error hidden">Email không tồn tại</p>
-            <p id="email-none" class="error hidden">Email không được để trống</p>
+            <p id="email-none" class="error hidden">
+              Email không được để trống
+            </p>
             <p id="invalid-email" class="error hidden">Email không hợp lệ</p>
           </div>
           <div class="input-container">
             <label for="role">Vai trò</label>
             <input type="text" name="role" id="role" />
-            <p id="role-none" class="error hidden">Vai trò không được để trống</p>
+            <p id="role-none" class="error hidden">
+              Vai trò không được để trống
+            </p>
           </div>
         </form>
         <div class="modal-footer">
