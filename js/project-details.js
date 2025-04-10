@@ -23,6 +23,10 @@ const btnSaveMember = document.querySelector("#btn-add-member-save");
 const emailElement = document.querySelector("#email");
 const roleElement = document.querySelector("#role");
 const memberList = document.querySelector("#member-list");
+const moreMember = document.querySelector("#more-member");
+const modalMemberList = document.querySelector("#modal-member-list");
+const memberListEl = document.querySelector("#member-list");
+const memberModalList = document.querySelector("#member-md-list");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -313,10 +317,12 @@ btnSaveMember.addEventListener("click", function (event) {
 });
 
 function renderMember() {
-  const memberListEl = document.getElementById("member-list");
   const filteredMembers = memberLocal.filter((mem) => mem.projID === projectID);
 
-  memberListEl.innerHTML = filteredMembers
+  // Chỉ hiển thị ra duy nhất 2 thành viên
+  const memList = filteredMembers.slice(0, 2);
+
+  memberListEl.innerHTML = memList
     .map(
       (mem) => `
     <div class="member">
@@ -329,7 +335,37 @@ function renderMember() {
   `
     )
     .join("");
+
+  memberModalList.innerHTML = filteredMembers
+    .map(
+      (mem) => `
+   <div class="modal-member">
+    <div class="member-info">
+      <div class="user-avt"></div>
+      <div class="info">
+        <h4>${mem.name}</h4>
+        <p>${mem.email}</p>
+      </div>
+    </div>
+    <div class="member-role">
+      <input
+        value="${mem.role}"
+        type="text"
+        name="member-role"
+        id="member-role"
+      />
+      <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
+    </div>
+  </div>
+    `
+    )
+    .join("");
 }
 
-renderMember();
+moreMember.addEventListener("click", function (event) {
+  event.preventDefault();
+  modalMemberList.classList.remove("hidden");
+});
+
+renderMember()
 renderData(missionLocal);

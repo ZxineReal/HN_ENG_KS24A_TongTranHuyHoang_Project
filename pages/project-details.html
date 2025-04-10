@@ -45,7 +45,7 @@
               </div>
               <div id="team-members" class="team-members">
                 <div id="member-list" class="member-list"></div>
-                <div class="more">...</div>
+                <div id="more-member" class="more">...</div>
               </div>
               <div class="team-form">
                 <select name="" id="">
@@ -249,8 +249,8 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay hidden">
-      <div class="modal">
+    <div id="modal-member-list" class="modal-overlay">
+      <div id="md-member-li" class="modal">
         <div class="modal-header">
           <p>Thành viên</p>
           <span class="form-close">&#215;</span>
@@ -260,53 +260,7 @@
             <p>Thành viên</p>
             <p>Vai trò</p>
           </div>
-          <div class="modal-members">
-            <div class="modal-member">
-              <div class="member-info">
-                <h4>An Nguyễn</h4>
-                <p>nguyenquangan@gmail.com</p>
-              </div>
-              <div class="member-role">
-                <input
-                  value="Project owner"
-                  type="text"
-                  name="member-role"
-                  id="member-role"
-                />
-                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
-              </div>
-            </div>
-            <div class="modal-member">
-              <div class="member-info">
-                <h4>Bách Nguyễn</h4>
-                <p>bachnx@gmail.com</p>
-              </div>
-              <div class="member-role">
-                <input
-                  value="Frontend developer"
-                  type="text"
-                  name="member-role"
-                  id="member-role"
-                />
-                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
-              </div>
-            </div>
-            <div class="modal-member">
-              <div class="member-info">
-                <h4>Dương Nguyễn</h4>
-                <p>duongnhm@gmail.com</p>
-              </div>
-              <div class="member-role">
-                <input
-                  value="Backend developer"
-                  type="text"
-                  name="member-role"
-                  id="member-role"
-                />
-                <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
-              </div>
-            </div>
-          </div>
+          <div id="member-md-list" class="modal-members"></div>
         </div>
         <div class="modal-footer">
           <div class="button-container">
