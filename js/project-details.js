@@ -128,7 +128,7 @@ btnSaveElement.addEventListener("click", function (event) {
   if (startDay > 0 && startDay < 10) {
     startDay = `0${startDay}`;
   }
-  let startMonth = startdate.getMonth();
+  let startMonth = startdate.getMonth() + 1;
   if (startMonth > 0 && startMonth < 10) {
     startMonth = `0${startMonth}`;
   }
@@ -144,7 +144,7 @@ btnSaveElement.addEventListener("click", function (event) {
   if (endDay > 0 && endDay < 10) {
     endDay = `0${endDay}`;
   }
-  let endMonth = enddate.getMonth();
+  let endMonth = enddate.getMonth() + 1;
   if (endMonth > 0 && endMonth < 10) {
     endMonth = `0${endMonth}`;
   }
@@ -313,16 +313,22 @@ btnSaveMember.addEventListener("click", function (event) {
 });
 
 function renderMember() {
-  const filterMember = memberLocal.filter((mem) => mem.prjID === projectID);
-  const memberHtmls = filterMember.map((mem) => {
-    return `
+  const memberListEl = document.getElementById("member-list");
+  const filteredMembers = memberLocal.filter((mem) => mem.projID === projectID);
+
+  memberListEl.innerHTML = filteredMembers
+    .map(
+      (mem) => `
     <div class="member">
-      <p class="member-name">${mem.name}</p>
-      <p class="member-role">${mem.role}</p>
+      <div class="user-avt"></div>
+      <div class member-add-info>
+        <p class="member-name">${mem.name}</p>
+        <p class="member-role">${mem.role}</p>
+      </div>
     </div>
-    `;
-  });
-  memberList.innerHTML = memberHtmls.join("");
+  `
+    )
+    .join("");
 }
 
 renderMember();

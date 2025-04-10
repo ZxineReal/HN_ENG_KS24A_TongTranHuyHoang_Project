@@ -142,13 +142,26 @@ body {
 
 .member {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.user-avt {
+  background-image: url(../assets/images/user-avt.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+  border-radius: 32px;
 }
 
 .member-list {
   display: flex;
   gap: 25px;
+  height: 42px;
 }
+
 
 .member-name {
   font-weight: 600;
