@@ -27,6 +27,16 @@ const moreMember = document.querySelector("#more-member");
 const modalMemberList = document.querySelector("#modal-member-list");
 const memberListEl = document.querySelector("#member-list");
 const memberModalList = document.querySelector("#member-md-list");
+const modalMemberClose = document.querySelector("#btn-members-cancel");
+const modalMemberCloseIcon = document.querySelector("#md-mb-close");
+const btnAddCancel = document.querySelector("#btn-add-cancel");
+const btnAddCancelIcon = document.querySelector("#add-icon-close");
+const optionMemberList = document.querySelector(".option-member-list");
+const modalDel = document.querySelector("#modal-add-del");
+const modalDelElement = document.querySelector("#modal-del");
+const modalDelCancel = document.querySelector("#md-del-cancel");
+const modalDelDel = document.querySelector("#md-del-del");
+const modalDelIcon = document.querySelector("#md-del-icon");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -93,10 +103,11 @@ function validateMissionName(name, element) {
 function checkEmptySelect(value, element, error) {
   if (value === "0") {
     showError(error, element);
+    return false;
   } else {
     removeError(error, element);
+    return true;
   }
-  return value;
 }
 
 btnAddMission.addEventListener("click", function () {
@@ -190,8 +201,23 @@ btnSaveElement.addEventListener("click", function (event) {
   };
   missionLocal.push(newMission);
   localStorage.setItem("missions", JSON.stringify(missionLocal));
+  missionElement.value = "";
+  chargePerson.value = "0";
+  statusElement.value = "0";
+  date.value = "";
+  deadline.value = "";
+  prioritize.value = "0";
+  progress.value = "0";
   modalAddElement.classList.add("hidden");
   renderData(missionLocal);
+});
+
+btnAddCancel.addEventListener("click", function () {
+  closeModal(modalAddElement);
+});
+
+btnAddCancelIcon.addEventListener("click", function () {
+  closeModal(modalAddElement);
 });
 
 function renderData(data) {
@@ -226,8 +252,10 @@ function renderData(data) {
           }">${mission.progress}</span>
         </td>
         <td>
-          <button class="btn-edit">Sửa</button>
-          <button class="btn-delete">Xóa</button>
+          <button onclick="" class="btn-edit">Sửa</button>
+          <button onclick="delMission(${
+            mission.id
+          })" class="btn-delete">Xóa</button>
         </td>
       </tr>
     `;
@@ -243,6 +271,28 @@ function renderData(data) {
     }
   });
 }
+
+let idDelete;
+function delMission(id) {
+  modalDelElement.classList.remove("hidden");
+  idDelete = id;
+}
+
+modalDelDel.addEventListener("click", function () {
+  const index = missionLocal.findIndex((mission) => mission.id === idDelete);
+  missionLocal.splice(index, 1);
+  localStorage.setItem("missions", JSON.stringify(missionLocal));
+  renderData(missionLocal);
+  modalDelElement.classList.add("hidden");
+});
+
+modalDelCancel.addEventListener("click", function(){
+  closeModal(modalDelElement);
+})
+
+modalDelIcon.addEventListener("click", function(){
+  closeModal(modalDelElement);
+})
 
 btnAddMember.addEventListener("click", function (event) {
   event.preventDefault();
@@ -360,6 +410,15 @@ function renderMember() {
     `
     )
     .join("");
+
+  optionMemberList.innerHTML = filteredMembers
+    .map(
+      (mem) =>
+        `
+  <option value="${mem.name}">${mem.name}</option>
+    `
+    )
+    .join("");
 }
 
 moreMember.addEventListener("click", function (event) {
@@ -367,5 +426,13 @@ moreMember.addEventListener("click", function (event) {
   modalMemberList.classList.remove("hidden");
 });
 
-renderMember()
+modalMemberClose.addEventListener("click", function () {
+  closeModal(modalMemberList);
+});
+
+modalMemberCloseIcon.addEventListener("click", function () {
+  closeModal(modalMemberList);
+});
+
+renderMember();
 renderData(missionLocal);

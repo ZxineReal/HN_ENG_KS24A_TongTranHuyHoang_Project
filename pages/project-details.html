@@ -126,7 +126,7 @@
       <div class="modal">
         <div class="modal-header">
           <h2>Thêm/sửa nhiệm vụ</h2>
-          <span class="form-close">&#215;</span>
+          <span id="add-icon-close" class="form-close">&#215;</span>
         </div>
         <form class="modal-body">
           <div class="input-container">
@@ -145,7 +145,8 @@
               <option selected="selected" disabled value="0">
                 Chọn người phụ trách
               </option>
-              <option value="1">ok</option>
+              <div class="option-member-list">
+              </div>
             </select>
             <div id="charge-none" class="error hidden">
               Vui lòng chọn người phụ trách
@@ -249,11 +250,11 @@
         </div>
       </div>
     </div>
-    <div id="modal-member-list" class="modal-overlay">
+    <div id="modal-member-list" class="modal-overlay hidden">
       <div id="md-member-li" class="modal">
         <div class="modal-header">
           <p>Thành viên</p>
-          <span class="form-close">&#215;</span>
+          <span id="md-mb-close" class="form-close">&#215;</span>
         </div>
         <div class="modal-body">
           <div class="body-title">
@@ -270,19 +271,19 @@
         </div>
       </div>
     </div>
-    <div class="modal-overlay hidden">
+    <div id="modal-del" class="modal-overlay hidden">
       <div class="modal">
         <div class="modal-header">
           <h2>Xác nhận xóa</h2>
-          <span class="form-close">&#215;</span>
+          <span id="md-del-icon" class="form-close">&#215;</span>
         </div>
         <div class="modal-body">
           <p>Bạn có chắc muốn xóa nhiệm vụ này?</p>
         </div>
         <div class="modal-footer">
           <div class="button-container">
-            <button class="btn-cancel">Hủy</button>
-            <button class="btn-del">Xóa</button>
+            <button id="md-del-cancel" class="btn-cancel">Hủy</button>
+            <button id="md-del-del" class="btn-del">Xóa</button>
           </div>
         </div>
       </div>
