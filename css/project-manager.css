@@ -228,6 +228,10 @@ body {
   cursor: pointer;
 }
 
+.pages {
+  display: flex;
+}
+
 #btn-prev {
   color: black;
   border-top-left-radius: 6px;
@@ -373,8 +377,13 @@ body {
 
 .none {
   cursor: not-allowed !important;
-  background-color: rgba(0, 0, 0, 0.4) !important;
-  color: white !important;
+  background-color: #DEE2E6 !important;
+  color: #212529 !important;
   transform: none !important;
   opacity: 1 !important;
+}
+
+.active {
+  background-color: #0D6EFD !important;
+  color: white !important;
 }

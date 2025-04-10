@@ -1,3 +1,4 @@
+// Phạm vi truy cập các phần tử trong DOM
 const btnAddElement = document.querySelector("#btn-add");
 const modalAddElement = document.querySelector("#modal-add");
 const projectNameElement = document.querySelector("#project-name");
@@ -11,14 +12,29 @@ const btnDelElement = document.querySelector("#btn-del-del");
 const formElement = document.querySelector("#modal-add-form");
 const findPrjElement = document.querySelector("#prj-find");
 const mainFormElement = document.querySelector("#main-form");
+const btnPagesElement = document.querySelector("#btn-pages");
+const btnPrevElement = document.querySelector("#btn-prev");
+const btnNextElement = document.querySelector("#btn-next");
 
+
+// Các biến để hiển thị lỗi
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
 const descriptionNone = document.querySelector("#des-none");
 
+// Các biến toàn cục
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let projectDetail = JSON.parse(localStorage.getItem("projectID"));
+
+// Biến phục vụ phân trang
+let curentPage = 1;
+const totalPerPage = 9;
+let totalPage = Math.ceil(
+  projectLocal.filter((p) => p.owner === loggedAccount).length / totalPerPage
+);
+
+let type = "";
 
 projectLinkElement.addEventListener("click", function () {
   localStorage.removeItem("projectID");
@@ -37,11 +53,65 @@ logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
 });
 
+function renderPages(data) {
+  userProjects = data.filter((prj) => prj.owner === loggedAccount);
+  totalPage = Math.ceil(userProjects.length / totalPerPage);
+
+  btnPagesElement.textContent = "";
+
+  // Hiển thị ra danh sách nút
+  for (let i = 1; i <= totalPage; i++) {
+    const pageElement = document.createElement("button");
+
+    pageElement.textContent = i;
+
+    if (curentPage === i) {
+      pageElement.classList.add("active");
+    }
+
+    if (curentPage === 1) {
+      btnPrevElement.classList.add("none");
+    } else {
+      btnPrevElement.classList.remove("none");
+    }
+
+    if (curentPage === totalPage) {
+      btnNextElement.classList.add("none");
+    } else {
+      btnNextElement.classList.remove("none");
+    }
+
+    pageElement.addEventListener("click", function () {
+      curentPage = i;
+      renderPages(data);
+      renderData(data);
+    });
+
+    btnPagesElement.appendChild(pageElement);
+  }
+}
+
+btnPrevElement.addEventListener("click", function () {
+  if (curentPage > 1) {
+    curentPage--;
+    renderPages(projectLocal);
+    renderData(projectLocal);
+  }
+});
+
+btnNextElement.addEventListener("click", function () {
+  if (curentPage < totalPage) {
+    curentPage++;
+    renderPages(projectLocal);
+    renderData(projectLocal);
+  }
+});
+
+renderPages(projectLocal);
+
 function closeModal(modal) {
   modal.classList.add("hidden");
 }
-
-let type = "";
 
 function checkEmpty(value, element, error) {
   if (!value) {
@@ -72,7 +142,9 @@ function validatePrjName(name, element) {
   if (isExists) {
     showError(projectNameExist, element);
     return;
-  } else [removeError(projectNameExist, element)];
+  } else {
+    removeError(projectNameExist, element);
+  }
 
   return name;
 }
@@ -80,7 +152,12 @@ function validatePrjName(name, element) {
 function renderData(value) {
   userProjects = value.filter((project) => project.owner === loggedAccount);
 
-  const projectHtmls = userProjects.map((project) => {
+  const start = (curentPage - 1) * totalPerPage;
+  const end = curentPage * totalPerPage;
+
+  const pagiProjects = userProjects.slice(start, end);
+
+  const projectHtmls = pagiProjects.map((project) => {
     return `
     <tr>
       <td>${project.id}</td>
@@ -94,6 +171,7 @@ function renderData(value) {
     `;
   });
   projectList.innerHTML = projectHtmls.join("");
+  renderPages(value);
 }
 
 let idDelete = "";

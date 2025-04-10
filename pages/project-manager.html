@@ -22,7 +22,9 @@
         <div class="main-content">
           <h1 class="main-title">Quản lý dự án nhóm</h1>
           <form id="main-form" class="form">
-            <button type="button" id="btn-add" class="button">+Thêm dự án</button>
+            <button type="button" id="btn-add" class="button">
+              +Thêm dự án
+            </button>
             <input
               type="text"
               name="prj-find"
@@ -45,10 +47,12 @@
           </div>
         </div>
         <div class="pagination">
-          <button id="btn-prev">&#60;</button>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
+          <button class="none" id="btn-prev">&#60;</button>
+          <div id="btn-pages" class="pages">
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+          </div>
           <button id="btn-next">&#62;</button>
         </div>
       </main>
@@ -108,14 +112,22 @@
       <div class="modal">
         <div class="modal-header">
           <h2>Xác nhận xóa</h2>
-          <span onclick="closeModal(modalDelElement)" class="form-close">&#215;</span>
+          <span onclick="closeModal(modalDelElement)" class="form-close"
+            >&#215;</span
+          >
         </div>
         <div class="modal-body">
           <p>Bạn có chắc muốn xóa dự án này?</p>
         </div>
         <div class="modal-footer">
           <div class="button-container">
-            <button onclick="closeModal(modalDelElement)" id="btn-del-cancel" class="btn-cancel">Hủy</button>
+            <button
+              onclick="closeModal(modalDelElement)"
+              id="btn-del-cancel"
+              class="btn-cancel"
+            >
+              Hủy
+            </button>
             <button id="btn-del-del" class="btn-del">Xóa</button>
           </div>
         </div>
