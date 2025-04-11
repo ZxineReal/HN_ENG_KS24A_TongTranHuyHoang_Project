@@ -135,6 +135,10 @@ btnSaveElement.addEventListener("click", function (event) {
     return;
   }
 
+  const selectedMember = memberLocal.find(
+    (member) => member.name === chargePersonValue
+  );
+
   const statusValue = statusElement.value;
   if (!checkEmptySelect(statusValue, statusElement, statusNone)) {
     return;
@@ -232,7 +236,7 @@ btnSaveElement.addEventListener("click", function (event) {
       progress: progressValue,
       date: dateValue,
       deadline: deadlineValue,
-      chargeEmail: { email: loggedAccount.email },
+      chargeEmail: { email: selectedMember.email },
     };
     missionLocal.push(newMission);
   } else if (type === "edit") {
