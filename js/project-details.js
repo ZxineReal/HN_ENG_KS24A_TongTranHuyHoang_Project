@@ -37,6 +37,11 @@ const modalDelElement = document.querySelector("#modal-del");
 const modalDelCancel = document.querySelector("#md-del-cancel");
 const modalDelDel = document.querySelector("#md-del-del");
 const modalDelIcon = document.querySelector("#md-del-icon");
+const memberSave = document.querySelector("#btn-members-save");
+const toggleTodo = document.querySelector("#toggleTodo");
+const toggleInprg = document.querySelector("#toggleInprg");
+const togglePending = document.querySelector("#togglePending");
+const toggleDone = document.querySelector("#toggleDone");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -62,7 +67,7 @@ let projectMission = missionLocal.filter(
   (mission) => mission.prjId === projectID
 );
 
-let style = "";
+let type = "";
 
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
@@ -111,7 +116,7 @@ function checkEmptySelect(value, element, error) {
 }
 
 btnAddMission.addEventListener("click", function () {
-  style = "add";
+  type = "add";
   modalAddElement.classList.remove("hidden");
 });
 
@@ -187,19 +192,39 @@ btnSaveElement.addEventListener("click", function (event) {
   if (!checkEmptySelect(progressValue, progress, progNone)) {
     return;
   }
+  if (type === "add") {
+    missionElement.value = "";
+    chargePerson.value = "0";
+    statusElement.value = "0";
+    date.value = "";
+    deadline.value = "";
+    prioritize.value = "0";
+    progress.value = "0";
+    const newMission = {
+      id: Math.ceil(Math.random() * 10000),
+      prjId: projectID,
+      name: missionValue,
+      status: statusValue,
+      charge: chargePersonValue,
+      prioritize: prioritizeValue,
+      start: `${startDay} - ${startMonth}`,
+      end: `${endDay} - ${endMonth}`,
+      progress: progressValue,
+      date: dateValue,
+      deadline: deadlineValue,
+    };
+    missionLocal.push(newMission);
+  } else if (type === "edit") {
+    let findMission = missionLocal.find((mission) => mission.id === idEdit);
+    findMission.name = missionElement.value;
+    findMission.charge = chargePerson.value;
+    findMission.status = statusElement.value;
+    findMission.start = `${startDay} - ${startMonth}`;
+    findMission.end = `${endDay} - ${endMonth}`;
+    findMission.prioritize = prioritize.value;
+    findMission.progress = progress.value;
+  }
 
-  const newMission = {
-    id: Math.ceil(Math.random() * 10000),
-    prjId: projectID,
-    name: missionValue,
-    status: statusValue,
-    charge: chargePersonValue,
-    prioritize: prioritizeValue,
-    start: `${startDay} - ${startMonth}`,
-    end: `${endDay} - ${endMonth}`,
-    progress: progressValue,
-  };
-  missionLocal.push(newMission);
   localStorage.setItem("missions", JSON.stringify(missionLocal));
   missionElement.value = "";
   chargePerson.value = "0";
@@ -209,6 +234,7 @@ btnSaveElement.addEventListener("click", function (event) {
   prioritize.value = "0";
   progress.value = "0";
   modalAddElement.classList.add("hidden");
+  type = "";
   renderData(missionLocal);
 });
 
@@ -252,7 +278,9 @@ function renderData(data) {
           }">${mission.progress}</span>
         </td>
         <td>
-          <button onclick="" class="btn-edit">Sửa</button>
+          <button onclick="handleEdit(${
+            mission.id
+          })" class="btn-edit">Sửa</button>
           <button onclick="delMission(${
             mission.id
           })" class="btn-delete">Xóa</button>
@@ -272,6 +300,21 @@ function renderData(data) {
   });
 }
 
+let idEdit;
+function handleEdit(id) {
+  modalAddElement.classList.remove("hidden");
+  idEdit = id;
+  type = "edit";
+  let findMission = missionLocal.find((mission) => mission.id === idEdit);
+  missionElement.value = findMission.name;
+  chargePerson.value = findMission.charge;
+  statusElement.value = findMission.status;
+  date.value = findMission.date;
+  deadline.value = findMission.deadline;
+  prioritize.value = findMission.prioritize;
+  progress.value = findMission.progress;
+}
+
 let idDelete;
 function delMission(id) {
   modalDelElement.classList.remove("hidden");
@@ -286,13 +329,13 @@ modalDelDel.addEventListener("click", function () {
   modalDelElement.classList.add("hidden");
 });
 
-modalDelCancel.addEventListener("click", function(){
+modalDelCancel.addEventListener("click", function () {
   closeModal(modalDelElement);
-})
+});
 
-modalDelIcon.addEventListener("click", function(){
+modalDelIcon.addEventListener("click", function () {
   closeModal(modalDelElement);
-})
+});
 
 btnAddMember.addEventListener("click", function (event) {
   event.preventDefault();
@@ -404,7 +447,7 @@ function renderMember() {
         name="member-role"
         id="member-role"
       />
-      <span class="icon-del"><i class="fa-solid fa-trash"></i></span>
+      <span class="icon-del"><i onclick="memberDelete(${mem.id})" class="fa-solid fa-trash"></i></span>
     </div>
   </div>
     `
@@ -421,6 +464,24 @@ function renderMember() {
     .join("");
 }
 
+let memberDelID;
+let isDelete = false;
+function memberDelete(id) {
+  memberDelID = id;
+  isDelete = true;
+}
+
+memberSave.addEventListener("click", function () {
+  if (isDelete) {
+    const index = memberLocal.findIndex((mem) => mem.id === memberDelID);
+    memberLocal.splice(index, 1);
+  }
+  localStorage.setItem("members", JSON.stringify(memberLocal));
+  renderMember();
+  closeModal(modalMemberList);
+  isDelete = false;
+});
+
 moreMember.addEventListener("click", function (event) {
   event.preventDefault();
   modalMemberList.classList.remove("hidden");
@@ -432,6 +493,26 @@ modalMemberClose.addEventListener("click", function () {
 
 modalMemberCloseIcon.addEventListener("click", function () {
   closeModal(modalMemberList);
+});
+
+toggleTodo.addEventListener("click", function () {
+  todoListElemment.classList.toggle("hidden");
+  toggleTodo.classList.toggle("list-active");
+});
+
+toggleInprg.addEventListener("click", function () {
+  inprogressListElemment.classList.toggle("hidden");
+  toggleInprg.classList.toggle("list-active");
+});
+
+togglePending.addEventListener("click", function () {
+  pendingListElemment.classList.toggle("hidden");
+  togglePending.classList.toggle("list-active");
+});
+
+toggleDone.addEventListener("click", function () {
+  doneListElemment.classList.toggle("hidden");
+  toggleDone.classList.toggle("list-active");
 });
 
 renderMember();
