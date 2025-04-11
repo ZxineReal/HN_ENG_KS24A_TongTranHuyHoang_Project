@@ -42,6 +42,7 @@ const toggleTodo = document.querySelector("#toggleTodo");
 const toggleInprg = document.querySelector("#toggleInprg");
 const togglePending = document.querySelector("#togglePending");
 const toggleDone = document.querySelector("#toggleDone");
+const missionFindElement = document.querySelector("#mission-find");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -56,6 +57,7 @@ const emailNone = document.querySelector("#email-none");
 const emailExist = document.querySelector("#email-exist");
 const roleNone = document.querySelector("#role-none");
 const invalidEmail = document.querySelector("#invalid-email");
+const emailNotExist = document.querySelector("#email-not-exist");
 
 let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
@@ -143,6 +145,11 @@ btnSaveElement.addEventListener("click", function (event) {
     return;
   }
 
+  let curentDate = new Date();
+  let curentDay = curentDate.getDate();
+  let curentMonth = curentDate.getMonth();
+  let curentYear = curentDate.getFullYear();
+
   let startdate = new Date(dateValue);
   let startDay = startdate.getDate();
   if (startDay > 0 && startDay < 10) {
@@ -171,9 +178,9 @@ btnSaveElement.addEventListener("click", function (event) {
   let endYear = enddate.getFullYear();
 
   if (
-    (endYear === startYear && endMonth === startMonth && endDay < startDay) ||
-    endYear < startYear ||
-    endMonth < startMonth
+    startYear > endYear ||
+    (startYear === endYear && startMonth > endMonth) ||
+    (startYear === endYear && startMonth === endMonth && startDay > endDay)
   ) {
     showError(invalidDate, date);
     showError(invalidDateline, deadline);
@@ -181,6 +188,19 @@ btnSaveElement.addEventListener("click", function (event) {
   } else {
     removeError(invalidDate, date);
     removeError(invalidDateline, deadline);
+  }
+
+  if (
+    startYear < curentYear ||
+    (startYear === curentYear && startMonth < curentMonth) ||
+    (startYear === curentYear &&
+      startMonth === curentMonth &&
+      startDay < curentDay)
+  ) {
+    showError(invalidDate, date);
+    return;
+  } else {
+    removeError(invalidDate, date);
   }
 
   const prioritizeValue = prioritize.value;
@@ -377,11 +397,21 @@ btnSaveMember.addEventListener("click", function (event) {
     return;
   }
 
-  if (!findAccount) {
+  const findEmail = memberLocal.find(
+    (mem) => mem.email === emailValue && mem.projID === projectID
+  );
+  if (findEmail) {
     showError(emailExist, emailElement);
     return;
   } else {
     removeError(emailExist, emailElement);
+  }
+
+  if (!findAccount) {
+    showError(emailNotExist, emailElement);
+    return;
+  } else {
+    removeError(emailNotExist, emailElement);
   }
 
   const roleValue = roleElement.value.trim();
@@ -476,6 +506,7 @@ memberSave.addEventListener("click", function () {
     const index = memberLocal.findIndex((mem) => mem.id === memberDelID);
     memberLocal.splice(index, 1);
   }
+
   localStorage.setItem("members", JSON.stringify(memberLocal));
   renderMember();
   closeModal(modalMemberList);
@@ -513,6 +544,20 @@ togglePending.addEventListener("click", function () {
 toggleDone.addEventListener("click", function () {
   doneListElemment.classList.toggle("hidden");
   toggleDone.classList.toggle("list-active");
+});
+
+missionFindElement.addEventListener("keyup", function (event) {
+  event.preventDefault();
+
+  const findMissison = missionFindElement.value.trim();
+  if (findMissison) {
+    const filterMission = missionLocal.filter((mission) =>
+      mission.name.includes(missionFindElement.value)
+    );
+    renderData(filterMission);
+  } else {
+    renderData(missionLocal);
+  }
 });
 
 renderMember();
