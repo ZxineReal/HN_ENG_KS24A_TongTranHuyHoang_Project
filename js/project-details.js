@@ -232,6 +232,7 @@ btnSaveElement.addEventListener("click", function (event) {
       progress: progressValue,
       date: dateValue,
       deadline: deadlineValue,
+      chargeEmail: loggedAccount,
     };
     missionLocal.push(newMission);
   } else if (type === "edit") {
