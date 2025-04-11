@@ -543,3 +543,7 @@ tbody tr td:nth-child(1) {
 .btn-del {
   background-color: #dc3545;
 }
+
+.del {
+  text-decoration: line-through;
+}

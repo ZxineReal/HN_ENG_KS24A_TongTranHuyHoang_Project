@@ -508,6 +508,20 @@ memberSave.addEventListener("click", function () {
     memberLocal.splice(index, 1);
   }
 
+  const roleInputs = document.querySelectorAll(
+    "#member-md-list input[name='member-role']"
+  );
+  const filteredMembers = memberLocal.filter((mem) => mem.projID === projectID);
+  roleInputs.forEach((input, index) => {
+    const member = filteredMembers[index];
+    if (member) {
+      const newRole = input.value.trim();
+      if (newRole) {
+        member.role = newRole;
+      }
+    }
+  });
+
   localStorage.setItem("members", JSON.stringify(memberLocal));
   renderMember();
   closeModal(modalMemberList);

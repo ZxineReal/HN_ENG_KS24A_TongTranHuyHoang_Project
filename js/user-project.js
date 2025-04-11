@@ -16,13 +16,8 @@ logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
   localStorage.removeItem("projectID");
 });
-console.log(projectLocal);
-console.log(projectID);
-
-
 
 const findProject = projectLocal.find((prj) => prj.id === projectID);
-console.log(findProject);
 
 // function renderData() {
 //   const findMission = missionLocal.find(
