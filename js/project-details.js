@@ -241,13 +241,16 @@ btnSaveElement.addEventListener("click", function (event) {
     missionLocal.push(newMission);
   } else if (type === "edit") {
     let findMission = missionLocal.find((mission) => mission.id === idEdit);
-    findMission.name = missionElement.value;
-    findMission.charge = chargePerson.value;
-    findMission.status = statusElement.value;
+    findMission.name = missionValue;
+    findMission.charge = chargePersonValue;
+    findMission.status = statusValue;
     findMission.start = `${startDay} - ${startMonth}`;
     findMission.end = `${endDay} - ${endMonth}`;
-    findMission.prioritize = prioritize.value;
-    findMission.progress = progress.value;
+    findMission.prioritize = prioritizeValue;
+    findMission.progress = progressValue;
+    findMission.chargeEmail = selectedMember.email;
+    findMission.date = dateValue;
+    findMission.deadline = deadlineValue;
   }
 
   localStorage.setItem("missions", JSON.stringify(missionLocal));

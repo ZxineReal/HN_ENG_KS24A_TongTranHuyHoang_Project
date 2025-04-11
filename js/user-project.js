@@ -1,9 +1,8 @@
 const logoutElement = document.querySelector("#l-log-out");
-const missionList = document.querySelector(".tbody");
+const missionList = document.querySelector("#tbody");
 
-let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
-let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
+let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
@@ -17,8 +16,11 @@ logoutElement.addEventListener("click", function () {
 
 function renderData() {
   const filterMission = missionLocal.filter(
-    (mission) => mission.chargeEmail === loggedAccount.email
+    (mission) => mission.chargeEmail === loggedAccount
   );
+
+  missionList.innerHTML = "";
+
   filterMission.forEach((mission) => {
     const html = 
     `
@@ -35,7 +37,8 @@ function renderData() {
       </td>
     </tr>
     `;
-    missionList.innerHTML = html.join("");
+    missionList.innerHTML += html;
   });
 }
+
 renderData();
