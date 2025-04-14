@@ -136,6 +136,13 @@ function validateMissionName(name, element) {
   if (!checkEmpty(name, element, missionNameNone)) {
     return;
   }
+  const findMissionName = missionLocal.find((mission) => mission.name === name);
+  if(findMissionName) {
+    showError(missionNameExist, missionElement);
+    return;
+  } else {
+    removeError(missionNameExist, missionElement);
+  }
   return name;
 }
 
