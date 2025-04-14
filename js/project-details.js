@@ -43,6 +43,7 @@ const toggleInprg = document.querySelector("#toggleInprg");
 const togglePending = document.querySelector("#togglePending");
 const toggleDone = document.querySelector("#toggleDone");
 const missionFindElement = document.querySelector("#mission-find");
+const prjContent = document.querySelector("#prj-content");
 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
@@ -582,5 +583,15 @@ missionFindElement.addEventListener("keyup", function (event) {
   }
 });
 
+function renderPrjContent() {
+  const findProject = projectLocal.find((prj) => prj.id == projectID);
+  const html = `
+    <h2>${findProject.name}</h2>
+    <p>${findProject.description}</p>
+  `;
+  prjContent.innerHTML = html;
+}
+
+renderPrjContent();
 renderMember();
 renderData(missionLocal);

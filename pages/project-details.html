@@ -23,7 +23,11 @@
           <li>
             <a id="l-projects" href="../pages/project-manager.html">Dự án</a>
           </li>
-          <li><a id="l-mission" href="../pages/user-project.html">Nhiệm vụ của tôi</a></li>
+          <li>
+            <a id="l-mission" href="../pages/user-project.html"
+              >Nhiệm vụ của tôi</a
+            >
+          </li>
           <li><a id="l-log-out" href="../pages/login.html">Đăng xuất</a></li>
         </ul>
       </header>
@@ -31,11 +35,14 @@
         <div class="main-content">
           <div class="project">
             <div class="project-content">
-              <h2>Xây dựng trang web thương mại điện tử</h2>
-              <p>
-                Dự án nhằm phát triển một nền tảng thương mại điện tử với các
-                tính năng như giỏ hàng, thanh toán và quản lý sản phẩm.
-              </p>
+              <div id="prj-content">
+                <h2>Xây dựng trang web thương mại điện tử</h2>
+                <p>
+                  Dự án nhằm phát triển một nền tảng thương mại điện tử với các
+                  tính năng như giỏ hàng, thanh toán và quản lý sản phẩm.
+                </p>
+              </div>
+
               <button id="btn-mission-add">+Thêm nhiệm vụ</button>
             </div>
             <div class="team-card">
@@ -145,8 +152,7 @@
               <option selected="selected" disabled value="0">
                 Chọn người phụ trách
               </option>
-              <div class="option-member-list">
-              </div>
+              <div class="option-member-list"></div>
             </select>
             <div id="charge-none" class="error hidden">
               Vui lòng chọn người phụ trách
@@ -229,7 +235,9 @@
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
             <p id="email-exist" class="error hidden">Email đã tồn tại</p>
-            <p id="email-not-exist" class="error hidden">Email không tồn tại trên hệ thống</p>
+            <p id="email-not-exist" class="error hidden">
+              Email không tồn tại trên hệ thống
+            </p>
             <p id="email-none" class="error hidden">
               Email không được để trống
             </p>
