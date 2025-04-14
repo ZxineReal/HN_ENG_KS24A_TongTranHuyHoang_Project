@@ -16,7 +16,6 @@ const btnPagesElement = document.querySelector("#btn-pages");
 const btnPrevElement = document.querySelector("#btn-prev");
 const btnNextElement = document.querySelector("#btn-next");
 
-
 // Các biến để hiển thị lỗi
 const projectNameNone = document.querySelector("#prj-name-none");
 const projectNameExist = document.querySelector("#exist-prj");
@@ -26,6 +25,8 @@ const descriptionNone = document.querySelector("#des-none");
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let projectDetail = JSON.parse(localStorage.getItem("projectID"));
+let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
+let memberLocal = JSON.parse(localStorage.getItem("members")) || [];
 
 // Biến phục vụ phân trang
 let curentPage = 1;
@@ -235,6 +236,20 @@ btnSaveElement.addEventListener("click", function (event) {
       owner: loggedAccount,
     };
     projectLocal.push(newProject);
+
+  const findAccount = accountLocal.find((acc) => acc.email == loggedAccount);
+  console.log(findAccount);
+  
+    const ownerMember = {
+      projID: String(newProject.id),
+      name: findAccount.name,
+      email: findAccount.email,
+      role: "Owner",
+    };
+    console.log(ownerMember);
+    
+    memberLocal.push(ownerMember);
+    localStorage.setItem("members", JSON.stringify(memberLocal));
   } else if (type === "edit") {
     const projEdit = projectLocal.find((prj) => prj.id === idEdit);
     projEdit.name = projectNameValue;

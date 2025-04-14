@@ -1,3 +1,4 @@
+// Khai báo các phần tử 
 const btnAddMission = document.querySelector("#btn-mission-add");
 const modalAddElement = document.querySelector("#modal-add");
 const missionElement = document.querySelector("#mission");
@@ -45,6 +46,7 @@ const toggleDone = document.querySelector("#toggleDone");
 const missionFindElement = document.querySelector("#mission-find");
 const prjContent = document.querySelector("#prj-content");
 
+// Khai báo các phần tử lỗi 
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
 const statusNone = document.querySelector("#status-none");
@@ -60,27 +62,40 @@ const roleNone = document.querySelector("#role-none");
 const invalidEmail = document.querySelector("#invalid-email");
 const emailNotExist = document.querySelector("#email-not-exist");
 
+// Khai báo các phần tử local
 let accountLocal = JSON.parse(localStorage.getItem("accounts")) || [];
 let projectLocal = JSON.parse(localStorage.getItem("projects")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
 let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
 let memberLocal = JSON.parse(localStorage.getItem("members")) || [];
 let projectID = localStorage.getItem("projectID");
+
+// Tìm projectID 
 let projectMission = missionLocal.filter(
   (mission) => mission.prjId === projectID
 );
 
-let type = "";
-
+// Kiểm tra đăng nhập
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
 }
 
+// Biến thể loại (thêm/sửa)
+let type = "";
+
+// Đăng xuất
 logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
   localStorage.removeItem("projectID");
 });
 
+/**
+ * Hàm kiểm tra biến rỗng
+ * @param {*} value Giá trị của biến (giá trị trong ô input)
+ * @param {*} element Biến (Biến input)
+ * @param {*} error Lỗi
+ * @returns 
+ */
 function checkEmpty(value, element, error) {
   if (!value) {
     showError(error, element);
@@ -91,11 +106,21 @@ function checkEmpty(value, element, error) {
   return element;
 }
 
+/**
+ * Hàm thông báo lỗi
+ * @param {*} error Lỗi
+ * @param {*} element Biến (Biến input)
+ */
 function showError(error, element) {
   error.classList.remove("hidden");
   element.classList.add("input-er");
 }
 
+/**
+ * Hàm loại bỏ thông báo lỗi
+ * @param {*} error Lỗi
+ * @param {*} element Biến (Biến input)
+ */
 function removeError(error, element) {
   error.classList.add("hidden");
   element.classList.remove("input-er");
@@ -108,6 +133,13 @@ function validateMissionName(name, element) {
   return name;
 }
 
+/**
+ * Hàm kiểm tra lựa chọn
+ * @param {*} value Giá trị trong ô select
+ * @param {*} element Biến select
+ * @param {*} error Lỗi
+ * @returns 
+ */
 function checkEmptySelect(value, element, error) {
   if (value === "0") {
     showError(error, element);
@@ -275,6 +307,10 @@ btnAddCancelIcon.addEventListener("click", function () {
   closeModal(modalAddElement);
 });
 
+/**
+ * Hàm render dữ liệu
+ * @param {*} data Dữ liệu để render ra màn hình
+ */
 function renderData(data) {
   const projectMission = data.filter((mission) => mission.prjId === projectID);
 
@@ -407,7 +443,7 @@ btnSaveMember.addEventListener("click", function (event) {
   }
 
   const findEmail = memberLocal.find(
-    (mem) => mem.email === emailValue && mem.projID === projectID
+    (mem) => mem.email === emailValue && mem.projID == projectID
   );
   if (findEmail) {
     showError(emailExist, emailElement);
@@ -449,7 +485,7 @@ btnSaveMember.addEventListener("click", function (event) {
 });
 
 function renderMember() {
-  const filteredMembers = memberLocal.filter((mem) => mem.projID === projectID);
+  const filteredMembers = memberLocal.filter((mem) => mem.projID == projectID);
 
   // Chỉ hiển thị ra duy nhất 2 thành viên
   const memList = filteredMembers.slice(0, 2);
