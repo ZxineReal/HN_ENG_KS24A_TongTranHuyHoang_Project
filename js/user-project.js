@@ -1,6 +1,10 @@
 const logoutElement = document.querySelector("#l-log-out");
 const missionList = document.querySelector("#tbody");
 const findElement = document.querySelector("#find");
+const modalStatus = document.querySelector("#modal-status");
+const formClose = document.querySelector("#form-close");
+const cancelUpdate = document.querySelector("#cancel-update");
+const confirmUpdate = document.querySelector("#confirm-update-status");
 
 let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
 let loggedAccount = JSON.parse(localStorage.getItem("logged"));
@@ -42,7 +46,7 @@ function renderData(missions) {
               : mission.status === "3"
               ? "Pending"
               : "Done"
-          }<i class="${
+          }<i onclick="updateStatus(${mission.id})" id="${mission.id}" class="${
       mission.status !== "4" ? "fa-solid fa-pen-to-square" : ""
     }"></i>
         </td>
@@ -74,6 +78,36 @@ findElement.addEventListener("keyup", function () {
   } else {
     renderData(filterMission);
   }
+});
+
+let statusID;
+function updateStatus(id) {
+  modalStatus.classList.remove("hidden");
+  statusID = id;
+}
+
+confirmUpdate.addEventListener("click", function () {
+  const findMission = missionLocal.find((mission) => mission.id == statusID);
+  console.log(findMission);
+
+  if (findMission.status == "1") {
+    findMission.status = "2";
+  } else if (findMission.status == "2") {
+    findMission.status = "3";
+  } else if (findMission.status == "3") {
+    findMission.status = "4";
+  }
+  localStorage.setItem("missions", JSON.stringify(missionLocal));
+  modalStatus.classList.add("hidden");
+  renderData(filterMission);
+});
+
+formClose.addEventListener("click", function () {
+  modalStatus.classList.add("hidden");
+});
+
+cancelUpdate.addEventListener("click", function () {
+  modalStatus.classList.add("hidden");
 });
 
 renderData(filterMission);
