@@ -1,4 +1,4 @@
-// Khai báo các phần tử 
+// Phạm vi truy cập các phần tử trong DOM
 const btnAddMission = document.querySelector("#btn-mission-add");
 const modalAddElement = document.querySelector("#modal-add");
 const missionElement = document.querySelector("#mission");
@@ -46,7 +46,7 @@ const toggleDone = document.querySelector("#toggleDone");
 const missionFindElement = document.querySelector("#mission-find");
 const prjContent = document.querySelector("#prj-content");
 
-// Khai báo các phần tử lỗi 
+// Khai báo các phần tử lỗi
 const missionNameNone = document.querySelector("#mission-name-none");
 const missionNameExist = document.querySelector("#mission-name-exist");
 const statusNone = document.querySelector("#status-none");
@@ -70,7 +70,7 @@ let missionLocal = JSON.parse(localStorage.getItem("missions")) || [];
 let memberLocal = JSON.parse(localStorage.getItem("members")) || [];
 let projectID = localStorage.getItem("projectID");
 
-// Tìm projectID 
+// Tìm projectID
 let projectMission = missionLocal.filter(
   (mission) => mission.prjId === projectID
 );
@@ -94,7 +94,7 @@ logoutElement.addEventListener("click", function () {
  * @param {*} value Giá trị của biến (giá trị trong ô input)
  * @param {*} element Biến (Biến input)
  * @param {*} error Lỗi
- * @returns 
+ * @returns
  */
 function checkEmpty(value, element, error) {
   if (!value) {
@@ -130,7 +130,7 @@ function removeError(error, element) {
  * Hàm kiểm tra tên nhiệm vụ
  * @param {*} name Tên nhiệm vụ
  * @param {*} element Biến nhiệm vụ
- * @returns 
+ * @returns
  */
 function validateMissionName(name, element) {
   if (!checkEmpty(name, element, missionNameNone)) {
@@ -144,7 +144,7 @@ function validateMissionName(name, element) {
  * @param {*} value Giá trị trong ô select
  * @param {*} element Biến select
  * @param {*} error Lỗi
- * @returns 
+ * @returns
  */
 function checkEmptySelect(value, element, error) {
   if (value === "0") {
@@ -172,7 +172,7 @@ btnAddMission.addEventListener("click", function () {
 // Sự kiện thêm/sửa nhiệm vụ
 btnSaveElement.addEventListener("click", function (event) {
   event.preventDefault();
-  
+
   // Tên nhiệm vụ
   const missionValue = missionElement.value.trim();
   if (!validateMissionName(missionValue, missionElement)) {
@@ -345,11 +345,13 @@ btnAddCancelIcon.addEventListener("click", function () {
 function renderData(data) {
   const projectMission = data.filter((mission) => mission.prjId === projectID);
 
+  // Reset trạng thái
   todoListElemment.innerHTML = "";
   inprogressListElemment.innerHTML = "";
   pendingListElemment.innerHTML = "";
   doneListElemment.innerHTML = "";
 
+  // Render nhiệm vụ ra màn hình
   projectMission.forEach((mission) => {
     const html = `
       <tr>
@@ -384,6 +386,7 @@ function renderData(data) {
       </tr>
     `;
 
+    // Đưa nhiệm vụ về đúng ô trạng thái
     if (mission.status === "1") {
       todoListElemment.innerHTML += html;
     } else if (mission.status === "2") {
@@ -420,12 +423,13 @@ function handleEdit(id) {
 let idDelete;
 /**
  * Hàm hiển thị modal xác nhận xóa
- * @param {*} id 
+ * @param {*} id
  */
 function delMission(id) {
   modalDelElement.classList.remove("hidden");
   idDelete = id;
 }
+
 // Sự kiện xóa nhiệm vụ
 modalDelDel.addEventListener("click", function () {
   const index = missionLocal.findIndex((mission) => mission.id === idDelete);
@@ -435,6 +439,7 @@ modalDelDel.addEventListener("click", function () {
   modalDelElement.classList.add("hidden");
 });
 
+// Hủy xóa nhiệm vụ
 modalDelCancel.addEventListener("click", function () {
   closeModal(modalDelElement);
 });
@@ -443,15 +448,21 @@ modalDelIcon.addEventListener("click", function () {
   closeModal(modalDelElement);
 });
 
+// Hiển thị modal thêm thành viên
 btnAddMember.addEventListener("click", function (event) {
   event.preventDefault();
   modalAddMember.classList.remove("hidden");
 });
 
+/**
+ * Hàm đóng modal
+ * @param {*} modal Modal
+ */
 function closeModal(modal) {
   modal.classList.add("hidden");
 }
 
+// Đóng modal
 formClose.addEventListener("click", function () {
   closeModal(modalAddMember);
 });
@@ -460,12 +471,14 @@ btnFormClose.addEventListener("click", function () {
   closeModal(modalAddMember);
 });
 
+// Sự kiện thêm thành viên
 btnSaveMember.addEventListener("click", function (event) {
   event.preventDefault();
 
   const emailValue = emailElement.value.trim();
   const findAccount = accountLocal.find((acc) => acc.email === emailValue);
 
+  // Validate email
   if (!emailValue) {
     showError(emailNone, emailElement);
     return;
@@ -500,6 +513,7 @@ btnSaveMember.addEventListener("click", function (event) {
     removeError(emailNotExist, emailElement);
   }
 
+  // Validate vai trò
   const roleValue = roleElement.value.trim();
   if (!roleValue) {
     showError(roleNone, roleElement);
@@ -508,6 +522,7 @@ btnSaveMember.addEventListener("click", function (event) {
     removeError(roleNone, roleElement);
   }
 
+  // Tạo thành viên mới
   const newMember = {
     projID: projectID,
     id: findAccount.id,
@@ -516,21 +531,27 @@ btnSaveMember.addEventListener("click", function (event) {
     role: roleValue,
   };
   memberLocal.push(newMember);
+
+  // Lưu thành viên lên localStorage
   localStorage.setItem("members", JSON.stringify(memberLocal));
 
+  // Reset modal
   emailElement.value = "";
   roleElement.value = "";
 
+  // Ẩn modal
   modalAddMember.classList.add("hidden");
   renderMember();
 });
 
+// Render thành viên
 function renderMember() {
   const filteredMembers = memberLocal.filter((mem) => mem.projID == projectID);
 
-  // Chỉ hiển thị ra duy nhất 2 thành viên
+  // Chỉ hiển thị tối đa 2 thành viên
   const memList = filteredMembers.slice(0, 2);
 
+  // Render thành viên lên màn hình
   memberListEl.innerHTML = memList
     .map(
       (mem) => `
@@ -544,7 +565,7 @@ function renderMember() {
   `
     )
     .join("");
-
+  // Render thành viên lên modal danh sách thành viên
   memberModalList.innerHTML = filteredMembers
     .map(
       (mem) => `
@@ -570,6 +591,7 @@ function renderMember() {
     )
     .join("");
 
+  // Render thành viên lên select chọn người phụ trách
   optionMemberList.innerHTML = filteredMembers
     .map(
       (mem) =>
@@ -580,44 +602,65 @@ function renderMember() {
     .join("");
 }
 
+// Xóa thành viên
 let memberDelID;
 let isDelete = false;
+/**
+ * Hàm tạo lệnh xóa
+ * @param {*} id
+ */
 function memberDelete(id) {
   memberDelID = id;
   isDelete = true;
 }
-
+// Sự kiện xóa thành viên
 memberSave.addEventListener("click", function () {
+  // Xóa nếu có lệnh xóa
   if (isDelete) {
     const index = memberLocal.findIndex((mem) => mem.id === memberDelID);
     memberLocal.splice(index, 1);
   }
 
+  // Lưu vai trò của nhân viên (áp dụng trong trường hợp sửa)
+
+  // Gọi input chứa vai trò thành viên
   const roleInputs = document.querySelectorAll(
     "#member-md-list input[name='member-role']"
   );
+  // Lọc thành viên có projID trùng với projectID(ID của project)
   const filteredMembers = memberLocal.filter((mem) => mem.projID === projectID);
+  // Duyệt qua các input chứa vai trò
   roleInputs.forEach((input, index) => {
     const member = filteredMembers[index];
+    // Nếu có thành viên
     if (member) {
+      // Vai trò mới
       const newRole = input.value.trim();
       if (newRole) {
+        // Lưu vai trò mới
         member.role = newRole;
       }
     }
   });
 
+  // Lưu thành viên vào localStorage
   localStorage.setItem("members", JSON.stringify(memberLocal));
+
+  // Render lại thành viên
   renderMember();
+  // ĐÓng modal
   closeModal(modalMemberList);
+  // Đặt lại lệnh xóa
   isDelete = false;
 });
 
+// Hiển thị danh sách thành viên
 moreMember.addEventListener("click", function (event) {
   event.preventDefault();
   modalMemberList.classList.remove("hidden");
 });
 
+// Đóng danh sách thành viên
 modalMemberClose.addEventListener("click", function () {
   closeModal(modalMemberList);
 });
@@ -626,6 +669,7 @@ modalMemberCloseIcon.addEventListener("click", function () {
   closeModal(modalMemberList);
 });
 
+// Đóng mở danh sách nhiệm vụ theo trạng thái
 toggleTodo.addEventListener("click", function () {
   todoListElemment.classList.toggle("hidden");
   toggleTodo.classList.toggle("list-active");
@@ -646,6 +690,7 @@ toggleDone.addEventListener("click", function () {
   toggleDone.classList.toggle("list-active");
 });
 
+// Tìm kiếm nhiệm vụ
 missionFindElement.addEventListener("keyup", function (event) {
   event.preventDefault();
 
@@ -660,6 +705,7 @@ missionFindElement.addEventListener("keyup", function (event) {
   }
 });
 
+// Render tên và mô tả dự án
 function renderPrjContent() {
   const findProject = projectLocal.find((prj) => prj.id == projectID);
   const html = `
@@ -669,6 +715,7 @@ function renderPrjContent() {
   prjContent.innerHTML = html;
 }
 
+// Gọi các hàm render
 renderPrjContent();
 renderMember();
 renderData(missionLocal);

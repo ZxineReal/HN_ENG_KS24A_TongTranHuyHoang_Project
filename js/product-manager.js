@@ -35,15 +35,18 @@ let totalPage = Math.ceil(
   projectLocal.filter((p) => p.owner === loggedAccount).length / totalPerPage
 );
 
+// Biến thể loại (Thêm / sửa)
 let type = "";
 
-projectLinkElement.addEventListener("click", function () {
-  localStorage.removeItem("projectID");
-});
-
+// Tìm ra account nào đang đăng nhập
 let userProjects = projectLocal.filter(
   (project) => project.owner === loggedAccount
 );
+
+// Đăng xuất
+projectLinkElement.addEventListener("click", function () {
+  localStorage.removeItem("projectID");
+});
 
 if (!loggedAccount) {
   window.location.href = "../pages/login.html";
@@ -54,6 +57,10 @@ logoutElement.addEventListener("click", function () {
   localStorage.removeItem("logged");
 });
 
+/**
+ * Hàm render trang
+ * @param {*} data trang
+ */
 function renderPages(data) {
   userProjects = data.filter((prj) => prj.owner === loggedAccount);
   totalPage = Math.ceil(userProjects.length / totalPerPage);
@@ -66,22 +73,26 @@ function renderPages(data) {
 
     pageElement.textContent = i;
 
+    // Gắn class active cho nút được ấn vào
     if (curentPage === i) {
       pageElement.classList.add("active");
     }
 
+    // Nếu page hiện tại = 1 thì không thể ấn nút trang trước
     if (curentPage === 1) {
       btnPrevElement.classList.add("none");
     } else {
       btnPrevElement.classList.remove("none");
     }
 
+    // Nếu trang hiện tại là trang cuối thì không thể ấn nút chuyển tiếp trang
     if (curentPage === totalPage) {
       btnNextElement.classList.add("none");
     } else {
       btnNextElement.classList.remove("none");
     }
 
+    // Gắn trang hiện tại cho nút được ấn vào và render nội dung trong trang
     pageElement.addEventListener("click", function () {
       curentPage = i;
       renderPages(data);
@@ -92,6 +103,7 @@ function renderPages(data) {
   }
 }
 
+// Sự kiện chuyển về trang trước
 btnPrevElement.addEventListener("click", function () {
   if (curentPage > 1) {
     curentPage--;
@@ -100,6 +112,7 @@ btnPrevElement.addEventListener("click", function () {
   }
 });
 
+// Sự kiện chuyển tiếp trang
 btnNextElement.addEventListener("click", function () {
   if (curentPage < totalPage) {
     curentPage++;
@@ -110,10 +123,21 @@ btnNextElement.addEventListener("click", function () {
 
 renderPages(projectLocal);
 
+/**
+ * Hàm đóng modal
+ * @param {*} modal modal
+ */
 function closeModal(modal) {
   modal.classList.add("hidden");
 }
 
+/**
+ * Hàm kiểm tra nội dung rỗng
+ * @param {*} value Nội dung
+ * @param {*} element Biến input chứa nội dung
+ * @param {*} error Lỗi
+ * @returns
+ */
 function checkEmpty(value, element, error) {
   if (!value) {
     showError(error, element);
@@ -124,16 +148,32 @@ function checkEmpty(value, element, error) {
   return element;
 }
 
+/**
+ * Hàm hiển thị lỗi
+ * @param {*} error Lỗi
+ * @param {*} element Biến chứa lỗi
+ */
 function showError(error, element) {
   error.classList.remove("hidden");
   element.classList.add("input-er");
 }
 
+/**
+ * Hàm xóa lỗi
+ * @param {*} error Lỗi
+ * @param {*} element Biến chứa lỗi
+ */
 function removeError(error, element) {
   error.classList.add("hidden");
   element.classList.remove("input-er");
 }
 
+/**
+ * Hàm validate dữ liệu cho project name
+ * @param {*} name Project name
+ * @param {*} element Biến project
+ * @returns
+ */
 function validatePrjName(name, element) {
   if (!checkEmpty(name, element, projectNameNone)) {
     return;
@@ -150,6 +190,10 @@ function validatePrjName(name, element) {
   return name;
 }
 
+/**
+ * Hàm render data
+ * @param {*} value Dữ liệu cần render
+ */
 function renderData(value) {
   userProjects = value.filter((project) => project.owner === loggedAccount);
 
@@ -175,12 +219,14 @@ function renderData(value) {
   renderPages(value);
 }
 
+// Xóa dự án
 let idDelete = "";
 function handleDelete(id) {
   idDelete = id;
   modalDelElement.classList.remove("hidden");
 }
 
+// Xác nhận xóa
 btnDelElement.addEventListener("click", function () {
   const index = projectLocal.findIndex((prj) => prj.id === idDelete);
   projectLocal.splice(index, 1);
@@ -189,6 +235,7 @@ btnDelElement.addEventListener("click", function () {
   closeModal(modalDelElement);
 });
 
+// Sửa dự án
 let idEdit = "";
 function handleEdit(id) {
   idEdit = id;
@@ -199,6 +246,7 @@ function handleEdit(id) {
   descriptionElement.value = prjEdit.description;
 }
 
+// Chi tiết dự án
 let idDetails = "";
 function showDetail(id) {
   idDetails = id;
@@ -207,12 +255,14 @@ function showDetail(id) {
   window.location.href = "../pages/project-details.html";
 }
 
+// Thêm dự án
 btnAddElement.addEventListener("click", function (event) {
   event.preventDefault();
   modalAddElement.classList.remove("hidden");
   type = "add";
 });
 
+// Lưu dự án
 btnSaveElement.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -225,7 +275,7 @@ btnSaveElement.addEventListener("click", function (event) {
   if (!checkEmpty(descriptionValue, descriptionElement, descriptionNone)) {
     return;
   }
-
+  // Nếu thêm
   if (type === "add") {
     projectNameElement.value = "";
     descriptionElement.value = "";
@@ -237,9 +287,9 @@ btnSaveElement.addEventListener("click", function (event) {
     };
     projectLocal.push(newProject);
 
-  const findAccount = accountLocal.find((acc) => acc.email == loggedAccount);
-  console.log(findAccount);
-  
+    const findAccount = accountLocal.find((acc) => acc.email == loggedAccount);
+    console.log(findAccount);
+
     const ownerMember = {
       projID: String(newProject.id),
       name: findAccount.name,
@@ -247,20 +297,24 @@ btnSaveElement.addEventListener("click", function (event) {
       role: "Owner",
     };
     console.log(ownerMember);
-    
+
     memberLocal.push(ownerMember);
     localStorage.setItem("members", JSON.stringify(memberLocal));
   } else if (type === "edit") {
-    const projEdit = projectLocal.find((prj) => prj.id === idEdit);
+    /* Nếu sửa */ const projEdit = projectLocal.find(
+      (prj) => prj.id === idEdit
+    );
     projEdit.name = projectNameValue;
     projEdit.description = descriptionValue;
   }
 
+  // Lưu dự án lên local
   localStorage.setItem("projects", JSON.stringify(projectLocal));
 
   projectNameElement.value = "";
   descriptionElement.value = "";
 
+  // Đóng modal thêm dự án và render dữ liệu, đặt lại biến thể loại
   closeModal(modalAddElement);
   renderData(projectLocal);
   type = "";
@@ -271,6 +325,7 @@ formElement.addEventListener("submit", function (event) {
   event.preventDefault();
 });
 
+// Tìm kiếm dự án
 mainFormElement.addEventListener("keyup", function (event) {
   event.preventDefault();
 
