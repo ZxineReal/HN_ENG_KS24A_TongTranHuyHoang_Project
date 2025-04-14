@@ -126,6 +126,12 @@ function removeError(error, element) {
   element.classList.remove("input-er");
 }
 
+/**
+ * Hàm kiểm tra tên nhiệm vụ
+ * @param {*} name Tên nhiệm vụ
+ * @param {*} element Biến nhiệm vụ
+ * @returns 
+ */
 function validateMissionName(name, element) {
   if (!checkEmpty(name, element, missionNameNone)) {
     return;
@@ -150,19 +156,30 @@ function checkEmptySelect(value, element, error) {
   }
 }
 
+// Sự kiện hiển thị modal thêm nhiệm vụ
 btnAddMission.addEventListener("click", function () {
   type = "add";
   modalAddElement.classList.remove("hidden");
+  missionElement.value = "";
+  chargePerson.value = "0";
+  statusElement.value = "0";
+  date.value = "";
+  deadline.value = "";
+  prioritize.value = "0";
+  progress.value = "0";
 });
 
+// Sự kiện thêm/sửa nhiệm vụ
 btnSaveElement.addEventListener("click", function (event) {
   event.preventDefault();
-
+  
+  // Tên nhiệm vụ
   const missionValue = missionElement.value.trim();
   if (!validateMissionName(missionValue, missionElement)) {
     return;
   }
 
+  // Người phụ trách
   const chargePersonValue = chargePerson.value;
   if (!checkEmptySelect(chargePersonValue, chargePerson, chargeNone)) {
     return;
@@ -172,16 +189,19 @@ btnSaveElement.addEventListener("click", function (event) {
     (member) => member.name === chargePersonValue
   );
 
+  // Trạng thái nhiệm vụ
   const statusValue = statusElement.value;
   if (!checkEmptySelect(statusValue, statusElement, statusNone)) {
     return;
   }
 
+  // Ngày bắt đầu
   const dateValue = date.value;
   if (!checkEmpty(dateValue, date, startNone)) {
     return;
   }
 
+  // Ngày hiện tại
   let curentDate = new Date();
   let curentDay = curentDate.getDate();
   let curentMonth = curentDate.getMonth();
@@ -198,6 +218,7 @@ btnSaveElement.addEventListener("click", function (event) {
   }
   let startYear = startdate.getFullYear();
 
+  // Ngày kết thúc
   const deadlineValue = deadline.value;
   if (!checkEmpty(deadlineValue, deadline, endNone)) {
     return;
@@ -214,6 +235,7 @@ btnSaveElement.addEventListener("click", function (event) {
   }
   let endYear = enddate.getFullYear();
 
+  // Validate ngày/tháng/năm
   if (
     startYear > endYear ||
     (startYear === endYear && startMonth > endMonth) ||
@@ -240,15 +262,19 @@ btnSaveElement.addEventListener("click", function (event) {
     removeError(invalidDate, date);
   }
 
+  // Độ ưu tiên
   const prioritizeValue = prioritize.value;
   if (!checkEmptySelect(prioritizeValue, prioritize, priNone)) {
     return;
   }
 
+  // Tiến độ
   const progressValue = progress.value;
   if (!checkEmptySelect(progressValue, progress, progNone)) {
     return;
   }
+
+  //Thêm nhiệm vụ / sửa nhiệm vụ
   if (type === "add") {
     missionElement.value = "";
     chargePerson.value = "0";
@@ -286,7 +312,10 @@ btnSaveElement.addEventListener("click", function (event) {
     findMission.deadline = deadlineValue;
   }
 
+  // Lưu nhiệm vụ lên local
   localStorage.setItem("missions", JSON.stringify(missionLocal));
+
+  // Reset dữ liệu trong modal
   missionElement.value = "";
   chargePerson.value = "0";
   statusElement.value = "0";
@@ -299,10 +328,12 @@ btnSaveElement.addEventListener("click", function (event) {
   renderData(missionLocal);
 });
 
+// Đóng modal
 btnAddCancel.addEventListener("click", function () {
   closeModal(modalAddElement);
 });
 
+// Đóng modal
 btnAddCancelIcon.addEventListener("click", function () {
   closeModal(modalAddElement);
 });
@@ -365,7 +396,12 @@ function renderData(data) {
   });
 }
 
+// Sửa nhiệm vụ
 let idEdit;
+/**
+ * Hàm sửa nhiệm vụ
+ * @param {*} id  ID nhiệm vụ
+ */
 function handleEdit(id) {
   modalAddElement.classList.remove("hidden");
   idEdit = id;
@@ -380,12 +416,17 @@ function handleEdit(id) {
   progress.value = findMission.progress;
 }
 
+// Xóa nhiệm vụ
 let idDelete;
+/**
+ * Hàm hiển thị modal xác nhận xóa
+ * @param {*} id 
+ */
 function delMission(id) {
   modalDelElement.classList.remove("hidden");
   idDelete = id;
 }
-
+// Sự kiện xóa nhiệm vụ
 modalDelDel.addEventListener("click", function () {
   const index = missionLocal.findIndex((mission) => mission.id === idDelete);
   missionLocal.splice(index, 1);
