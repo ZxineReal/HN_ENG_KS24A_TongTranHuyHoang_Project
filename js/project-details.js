@@ -137,7 +137,7 @@ function validateMissionName(name, element) {
     return;
   }
   const findMissionName = missionLocal.find((mission) => mission.name === name && mission.prjId === projectID);
-  if(findMissionName) {
+  if(findMissionName && type == "add") {
     showError(missionNameExist, missionElement);
     return;
   } else {
